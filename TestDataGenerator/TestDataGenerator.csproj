@@ -72,15 +72,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Internal\GenerateTestData.cs">
+      <DependentUpon>IGenerator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Internal\GetTestDataLengh.cs">
       <DependentUpon>ITestDataLengh.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\GetTestDataType.cs">
       <DependentUpon>ITestDataType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Internal\IGenerator.cs" />
     <Compile Include="Internal\ITestData.cs" />
     <Compile Include="Internal\ITestDataLengh.cs" />
     <Compile Include="Internal\ITestDataType.cs" />
+    <Compile Include="Internal\TestDataCharPool.cs" />
     <Compile Include="Style\AppTreeItem.cs" />
     <Compile Include="Style\CloseTabItemAction.cs" />
     <Compile Include="Internal\GetTestData.cs">

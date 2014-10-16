@@ -7,13 +7,6 @@ namespace TestDataGenerator.Internal
         private readonly ITestDataLengh _testDataLengh;
         private readonly ITestDataType _testDataType;
 
-        private const string CapitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private const string SmallLetters = "abcdefghijklmnopqrstuvwyxz";
-        private const string Numbers = "1234567890";
-        private const string Signs = @"@€!§$%&/(){}[]\=?+*~#,;.:";
-
-        private static readonly Random Rng = new Random();
-
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
@@ -31,17 +24,6 @@ namespace TestDataGenerator.Internal
             _testDataType = testDataType;
         }
 
-        private static string GenerateTestData(int length, string charPool)
-        {
-            var buffer = new char[length];
-
-            for (var i = 0; i < length; i++)
-            {
-                buffer[i] = charPool[Rng.Next(charPool.Length)];
-            }
-            return new string(buffer);
-        }
-
         public string Value
         {
             get
@@ -49,28 +31,25 @@ namespace TestDataGenerator.Internal
                 switch (_testDataType.Value)
                 {
                     case "Letters":
-                        return GenerateTestData(_testDataLengh.Value, CapitalLetters + SmallLetters);
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.Letters).Value;
 
                     case "Numbers":
-                        return GenerateTestData(_testDataLengh.Value, Numbers);
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.Numbers).Value;
 
                     case "Capital Letters":
-                        return GenerateTestData(_testDataLengh.Value, CapitalLetters);
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.CapitalLetters).Value;
 
                     case "Small Letters":
-                        return GenerateTestData(_testDataLengh.Value, SmallLetters);
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.SmallLetters).Value;
 
                     case "Letters and Numbers":
-                        return GenerateTestData(_testDataLengh.Value,
-                            string.Format("{0}{1}{2}", CapitalLetters, SmallLetters, Numbers));
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.LettersNumbers).Value;
 
                     case "Letters, Numbers and Signs":
-                        return GenerateTestData(_testDataLengh.Value,
-                            string.Format("{0}{1}{2}{3}", CapitalLetters, SmallLetters, Numbers, Signs));
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.LettersNumbersSigns).Value;
 
                     default:
-                        return GenerateTestData(_testDataLengh.Value,
-                            string.Format("{0}{1}{2}", CapitalLetters, SmallLetters, Numbers));
+                        return new GenerateTestData(_testDataLengh.Value, TestDataCharPool.LettersNumbersSigns).Value;
                 }
             }
         }
