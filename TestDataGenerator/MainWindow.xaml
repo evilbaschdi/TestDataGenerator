@@ -5,11 +5,11 @@
                       Title="Test Data Generator" Height="350" Width="525" Style="{DynamicResource VSWindowStyleKey}">
     <Grid>
         <Label Content="Lenght:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
-        <TextBox Name="Length" TextWrapping="Wrap" Margin="100,13,10,0" Height="23" VerticalAlignment="Top"
-                 TextChanged="Length_TextChanged" />
+        <TextBox Name="TestDataLength" TextWrapping="Wrap" Margin="100,13,10,0" Height="23" VerticalAlignment="Top"
+                 TextChanged="TestDataLengthTextChanged" />
         <Label Content="Data Type:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" />
         <ComboBox Name="DataType" Margin="100,44,10,0" Height="23" VerticalAlignment="Top"
-                  SelectionChanged="DataType_SelectionChanged">
+                  SelectionChanged="DataTypeSelectionChanged">
             <ComboBoxItem Content="Letters" />
             <ComboBoxItem Content="Numbers" />
             <ComboBoxItem Content="Capital Letters" />
@@ -19,8 +19,10 @@
         </ComboBox>
         <CheckBox Content="Unicode" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top"
                   IsEnabled="False" Visibility="Hidden" />
-        <Button Name="Generator" Content="Generate" Margin="0,95,10,0" Height="20" VerticalAlignment="Top"
-                HorizontalAlignment="Right" Width="75" Click="Button_Click" />
+        <Button x:Name="Generator" Content="Generate" Margin="0,95,90,0" Height="20" VerticalAlignment="Top"
+        	HorizontalAlignment="Right" Width="75" Click="GenerateOutputOnClick" />
+        <Button Name="CopyToClipboard" Content="Clipboard" Margin="0,95,10,0" Height="20" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Width="75" Click="CopyToClipboardOnClick" />
         <Label Content="Output:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" />
         <TextBox Name="Output" TextWrapping="Wrap" Margin="100,125,10,10" IsReadOnly="True"
                  VerticalScrollBarVisibility="Auto" />

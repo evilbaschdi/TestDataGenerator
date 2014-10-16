@@ -71,9 +71,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Internal\GetTestDataLengh.cs">
+      <DependentUpon>ITestDataLengh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\GetTestDataType.cs">
+      <DependentUpon>ITestDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\ITestData.cs" />
+    <Compile Include="Internal\ITestDataLengh.cs" />
+    <Compile Include="Internal\ITestDataType.cs" />
     <Compile Include="Style\AppTreeItem.cs" />
     <Compile Include="Style\CloseTabItemAction.cs" />
-    <Compile Include="Internal\TestData.cs" />
+    <Compile Include="Internal\GetTestData.cs">
+      <DependentUpon>ITestData.cs</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,13 +196,13 @@
     <Resource Include="metro.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Style\server.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Style\server.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
