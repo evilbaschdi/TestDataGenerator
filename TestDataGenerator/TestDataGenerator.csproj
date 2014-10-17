@@ -26,8 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\TestDataGenerator.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,8 +36,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Release\TestDataGenerator.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>metro.ico</ApplicationIcon>
@@ -49,15 +46,15 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=0.15.0.31, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MahApps.Metro, Version=0.14.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MahApps.Metro.0.15.0-ALPHA31\lib\net45\MahApps.Metro.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.14.0.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.0.15.0-ALPHA31\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.14.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,9 +73,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Internal\GenerateTestData.cs">
+      <DependentUpon>IGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\GetTestDataLengh.cs">
+      <DependentUpon>ITestDataLengh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\GetTestDataType.cs">
+      <DependentUpon>ITestDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\IGenerator.cs" />
+    <Compile Include="Internal\ITestData.cs" />
+    <Compile Include="Internal\ITestDataCharPool.cs" />
+    <Compile Include="Internal\ITestDataLengh.cs" />
+    <Compile Include="Internal\ITestDataType.cs" />
+    <Compile Include="Internal\TestDataCharPool.cs">
+      <DependentUpon>ITestDataCharPool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Style\AppTreeItem.cs" />
     <Compile Include="Style\CloseTabItemAction.cs" />
-    <Compile Include="Internal\TestData.cs" />
+    <Compile Include="Internal\GetTestData.cs">
+      <DependentUpon>ITestData.cs</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
