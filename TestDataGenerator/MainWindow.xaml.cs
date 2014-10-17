@@ -16,6 +16,9 @@ namespace TestDataGenerator
     {
         private bool _textBoxChanging;
 
+        /// <summary>
+        /// MainWindows
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
