@@ -2,7 +2,7 @@
 
 namespace TestDataGenerator.Core
 {
-    public class Extensions
+    public static class Extensions
     {
         private static bool _textBoxChanging;
 
@@ -10,7 +10,7 @@ namespace TestDataGenerator.Core
         ///     Modifies the entered text of a textbox to accept only numbers.
         /// </summary>
         /// <param name="box">Textbox to modify.</param>
-        public static void ProhibitLettersToAllowOnlyNumbers(TextBox box)
+        public static void ProhibitLettersToAllowOnlyNumbers(this TextBox box)
         {
             // stop multiple changes;
             if (_textBoxChanging)

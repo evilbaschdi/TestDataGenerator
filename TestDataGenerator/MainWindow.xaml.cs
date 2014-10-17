@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using System.Windows.Input;
+using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using TestDataGenerator.Core;
@@ -12,20 +13,51 @@ namespace TestDataGenerator
 
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-        // ReSharper restore RedundantExtendsListEntry
+    // ReSharper restore RedundantExtendsListEntry
     {
         public MainWindow()
         {
             InitializeComponent();
             ValidateForm();
+            TestDataLength.Focus();
             DataType.Text = "Letters";
         }
 
         private void GenerateOutputOnClick(object sender, RoutedEventArgs e)
         {
+            CallGetTestData();
+        }
+
+        private void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Return:
+                    CallGetTestData();
+                    break;
+
+                case Key.Tab:
+                    DataType.IsDropDownOpen = true;
+                    break;
+            }
+        }
+
+        private void DataTypeOnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Return:
+                    CallGetTestData();
+                    break;
+            }
+        }
+
+        private void CallGetTestData()
+        {
             ITestDataLengh testDataLengh = new GetTestDataLengh(TestDataLength.Text);
             ITestDataType testDataType = new GetTestDataType(DataType.Text);
-            ITestData testData = new GetTestData(testDataLengh, testDataType);
+            ITestDataCharPool testDataCharPool = new TestDataCharPool();
+            ITestData testData = new GetTestData(testDataLengh, testDataType, testDataCharPool);
             Output.Text = testData.Value;
         }
 
@@ -42,7 +74,7 @@ namespace TestDataGenerator
 
         private void TestDataLengthTextChanged(object sender, TextChangedEventArgs e)
         {
-            Extensions.ProhibitLettersToAllowOnlyNumbers(TestDataLength);
+            TestDataLength.ProhibitLettersToAllowOnlyNumbers();
             ValidateForm();
         }
 
@@ -50,5 +82,8 @@ namespace TestDataGenerator
         {
             ValidateForm();
         }
+
+
+        
     }
 }

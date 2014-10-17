@@ -1,38 +1,38 @@
 ﻿namespace TestDataGenerator.Internal
 {
-    public static class TestDataCharPool
+    public class TestDataCharPool : ITestDataCharPool
     {
-        public static string CapitalLetters
+        public string CapitalLetters
         {
             get { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; }
         }
 
-        public static string SmallLetters
+        public string SmallLetters
         {
             get { return "abcdefghijklmnopqrstuvwyxz"; }
         }
 
-        public static string Numbers
+        public string Numbers
         {
             get { return "1234567890"; }
         }
 
-        public static string Signs
+        public string Signs
         {
             get { return @"@€!§$%&/(){}[]\=?+*~#,;.:"; }
         }
 
-        public static string Letters
+        public string Letters
         {
             get { return string.Format("{0}{1}", CapitalLetters, SmallLetters); }
         }
 
-        public static string LettersNumbers
+        public string LettersNumbers
         {
             get { return string.Format("{0}{1}", Letters, Numbers); }
         }
 
-        public static string LettersNumbersSigns
+        public string LettersNumbersSigns
         {
             get { return string.Format("{0}{1}", LettersNumbers, Signs); }
         }

@@ -26,7 +26,7 @@ namespace TestDataGenerator.Style
 
     public class AppTreeContainer : AppTreeNode
     {
-        private readonly ObservableCollection<AppTreeNode> _children;
+        private readonly ObservableCollection <AppTreeNode> _children;
         private readonly bool _enablePreview;
 
         private AppTreeNode _previewChild;
@@ -34,7 +34,7 @@ namespace TestDataGenerator.Style
         public AppTreeContainer(string selectionGroup, string header, bool enablePreview = false)
             : base(selectionGroup, header)
         {
-            _children = new ObservableCollection<AppTreeNode>();
+            _children = new ObservableCollection <AppTreeNode>();
             _enablePreview = enablePreview;
 
             if (_enablePreview)
@@ -59,17 +59,17 @@ namespace TestDataGenerator.Style
             }
         }
 
-        public IEnumerable<AppTreeContainer> ContainerChildren
+        public IEnumerable <AppTreeContainer> ContainerChildren
         {
-            get { return _children.OfType<AppTreeContainer>(); }
+            get { return _children.OfType <AppTreeContainer>(); }
         }
 
-        public IEnumerable<AppTreeItem> ItemChildren
+        public IEnumerable <AppTreeItem> ItemChildren
         {
-            get { return _children.OfType<AppTreeItem>(); }
+            get { return _children.OfType <AppTreeItem>(); }
         }
 
-        public IEnumerable<AppTreeNode> Children
+        public IEnumerable <AppTreeNode> Children
         {
             get { return _children; }
         }
@@ -140,12 +140,12 @@ namespace TestDataGenerator.Style
 
     public class AppTreeGenerator
     {
-        public AppTreeContainer Generate(IEnumerable<IAppTreeDataProvider> dataProviders)
+        public AppTreeContainer Generate(IEnumerable <IAppTreeDataProvider> dataProviders)
         {
             return Generate(dataProviders, false);
         }
 
-        public AppTreeContainer Generate(IEnumerable<IAppTreeDataProvider> dataProviders, bool enablePreview)
+        public AppTreeContainer Generate(IEnumerable <IAppTreeDataProvider> dataProviders, bool enablePreview)
         {
             var root = new AppTreeContainer("root", "root");
 
@@ -191,16 +191,16 @@ namespace TestDataGenerator.Style
 
     public abstract class AppTreeNode : INotifyPropertyChanged
     {
-        protected string _group;
+        private readonly string _group;
         private bool _isSelected;
 
-        public AppTreeNode(string selectionGroup, string header)
+        protected AppTreeNode(string selectionGroup, string header)
         {
             _group = selectionGroup;
             Header = header;
         }
 
-        public AppTreeNode(string selectionGroup, string header, Image icon)
+        protected AppTreeNode(string selectionGroup, string header, Image icon)
         {
             _group = selectionGroup;
             Header = header;
@@ -253,7 +253,7 @@ namespace TestDataGenerator.Style
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public event Action<AppTreeNode> SelectionChanged;
+        public event Action <AppTreeNode> SelectionChanged;
 
         public void Select()
         {
@@ -287,28 +287,28 @@ namespace TestDataGenerator.Style
     {
         #region Fields
 
-        private readonly Predicate<object> _canExecute;
-        private readonly Action<object> _execute;
+        private readonly Predicate <object> _canExecute;
+        private readonly Action <object> _execute;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Creates a new command that can always execute.
+        ///     Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<object> execute)
+        public RelayCommand(Action <object> execute)
             : this(execute, null)
         {
         }
 
         /// <summary>
-        /// Creates a new command.
+        ///     Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        public RelayCommand(Action <object> execute, Predicate <object> canExecute)
         {
             if (execute == null)
             {

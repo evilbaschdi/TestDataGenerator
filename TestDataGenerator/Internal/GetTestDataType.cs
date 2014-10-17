@@ -2,12 +2,12 @@
 
 namespace TestDataGenerator.Internal
 {
-    public class GetTestDataType :ITestDataType
+    public class GetTestDataType : ITestDataType
     {
         private readonly string _testDataTypeString;
 
         /// <summary>
-        /// Initialisiert eine neue Instanz der <see cref="T:System.Object"/>-Klasse.
+        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
         public GetTestDataType(string testDataTypeString)
         {
