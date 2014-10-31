@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TestDataGenerator.Core;
 using TestDataGenerator.Internal;
 
@@ -13,7 +13,7 @@ namespace TestDataGenerator
 
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-    // ReSharper restore RedundantExtendsListEntry
+        // ReSharper restore RedundantExtendsListEntry
     {
         public MainWindow()
         {
@@ -21,6 +21,15 @@ namespace TestDataGenerator
             ValidateForm();
             TestDataLength.Focus();
             DataType.Text = "Letters";
+        }
+
+        private void CallGetTestData()
+        {
+            var testDataLengh = new GetTestDataLengh(TestDataLength.Text);
+            var testDataType = new GetTestDataType(DataType.Text);
+            var testDataCharPool = new TestDataCharPool();
+            var testData = new GetTestData(testDataLengh, testDataType, testDataCharPool);
+            Output.Text = testData.Value;
         }
 
         private void GenerateOutputOnClick(object sender, RoutedEventArgs e)
@@ -52,15 +61,6 @@ namespace TestDataGenerator
             }
         }
 
-        private void CallGetTestData()
-        {
-            ITestDataLengh testDataLengh = new GetTestDataLengh(TestDataLength.Text);
-            ITestDataType testDataType = new GetTestDataType(DataType.Text);
-            ITestDataCharPool testDataCharPool = new TestDataCharPool();
-            ITestData testData = new GetTestData(testDataLengh, testDataType, testDataCharPool);
-            Output.Text = testData.Value;
-        }
-
         private void CopyToClipboardOnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(Output.Text);
@@ -68,8 +68,9 @@ namespace TestDataGenerator
 
         private void ValidateForm()
         {
-            Generator.IsEnabled = !string.IsNullOrWhiteSpace(TestDataLength.Text);
-            CopyToClipboard.IsEnabled = !string.IsNullOrWhiteSpace(TestDataLength.Text);
+            var testDataLenghtIsNotNullOrWhiteSpace = !string.IsNullOrWhiteSpace(TestDataLength.Text);
+            Generator.IsEnabled = testDataLenghtIsNotNullOrWhiteSpace;
+            CopyToClipboard.IsEnabled = testDataLenghtIsNotNullOrWhiteSpace;
         }
 
         private void TestDataLengthTextChanged(object sender, TextChangedEventArgs e)
@@ -82,8 +83,5 @@ namespace TestDataGenerator
         {
             ValidateForm();
         }
-
-
-        
     }
 }
