@@ -13,10 +13,8 @@ namespace TestDataGenerator
 
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-        // ReSharper restore RedundantExtendsListEntry
-    {
-        public MainWindow()
-        {
+    // ReSharper restore RedundantExtendsListEntry
+        public MainWindow()     {
             InitializeComponent();
             ValidateForm();
             TestDataLength.Focus();
