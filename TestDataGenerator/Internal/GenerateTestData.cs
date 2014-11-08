@@ -14,7 +14,7 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public GenerateTestData(int length, string charPool)
         {
-            if (charPool == null)
+            if(charPool == null)
             {
                 throw new ArgumentNullException("charPool");
             }
@@ -30,7 +30,7 @@ namespace TestDataGenerator.Internal
 
                 _buffer = new char[_length];
 
-                for (var i = 0; i < _length; i++)
+                for(var i = 0; i < _length; i++)
                 {
                     _buffer[i] = _charPool[_random.Next(_charPool.Length)];
                 }

@@ -13,15 +13,15 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public GetTestData(ITestDataLengh testDataLengh, ITestDataType testDataType, ITestDataCharPool testDataCharPool)
         {
-            if (testDataLengh == null)
+            if(testDataLengh == null)
             {
                 throw new ArgumentNullException("testDataLengh");
             }
-            if (testDataType == null)
+            if(testDataType == null)
             {
                 throw new ArgumentNullException("testDataType");
             }
-            if (testDataCharPool == null)
+            if(testDataCharPool == null)
             {
                 throw new ArgumentNullException("testDataCharPool");
             }
@@ -34,7 +34,7 @@ namespace TestDataGenerator.Internal
         {
             get
             {
-                switch (_testDataType.Value)
+                switch(_testDataType.Value)
                 {
                     case "Letters":
                         return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.Letters).Value;
@@ -53,6 +53,18 @@ namespace TestDataGenerator.Internal
 
                     case "Letters, Numbers and Signs":
                         return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.LettersNumbersSigns).Value;
+
+                    case "Guids (digits)":
+                        return new GenerateTestGuids(_testDataLengh.Value, "N").Value;
+
+                    case "Guids (hyphens)":
+                        return new GenerateTestGuids(_testDataLengh.Value, "D").Value;
+
+                    case "Guids (braces)":
+                        return new GenerateTestGuids(_testDataLengh.Value, "B").Value;
+
+                    case "Guids (parentheses)":
+                        return new GenerateTestGuids(_testDataLengh.Value, "P").Value;
 
                     default:
                         return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.LettersNumbersSigns).Value;

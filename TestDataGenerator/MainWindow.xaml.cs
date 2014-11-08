@@ -1,7 +1,7 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MahApps.Metro.Controls;
 using TestDataGenerator.Core;
 using TestDataGenerator.Internal;
 
@@ -39,7 +39,7 @@ namespace TestDataGenerator
 
         private void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            switch(e.Key)
             {
                 case Key.Return:
                     CallGetTestData();
@@ -53,7 +53,7 @@ namespace TestDataGenerator
 
         private void DataTypeOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            switch(e.Key)
             {
                 case Key.Return:
                     CallGetTestData();

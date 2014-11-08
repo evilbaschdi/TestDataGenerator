@@ -4,7 +4,7 @@
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Icon="metro.ico"
                       Title="Test Data Generator" Height="350" Width="525" Style="{DynamicResource VSWindowStyleKey}">
     <Grid>
-        <Label Content="Lenght:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+        <Label Content="Lenght, Count:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
         <TextBox Name="TestDataLength" TextWrapping="Wrap" Margin="100,13,10,0" Height="23" VerticalAlignment="Top"
                  TextChanged="TestDataLengthTextChanged" KeyDown="TestDataLengthOnKeyDown" />
         <Label Content="Data Type:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" />
@@ -16,6 +16,10 @@
             <ComboBoxItem Content="Small Letters" />
             <ComboBoxItem Content="Letters and Numbers" />
             <ComboBoxItem Content="Letters, Numbers and Signs" />
+            <ComboBoxItem Content="Guids (digits)" />
+            <ComboBoxItem Content="Guids (hyphens)" />
+            <ComboBoxItem Content="Guids (braces)" />
+            <ComboBoxItem Content="Guids (parentheses)" />
         </ComboBox>
         <CheckBox Content="Unicode" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top"
                   IsEnabled="False" Visibility="Hidden" />
