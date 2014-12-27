@@ -4,23 +4,23 @@ namespace TestDataGenerator.Internal
 {
     public class GetTestDataLengh : ITestDataLengh
     {
-        private readonly string _lengthAsString;
+        private readonly double? _lengthAsDouble;
 
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        public GetTestDataLengh(string lengthAsString)
+        public GetTestDataLengh(double? lengthAsDouble)
         {
-            if (lengthAsString == null)
+            if(lengthAsDouble == null)
             {
-                throw new ArgumentNullException("lengthAsString");
+                throw new ArgumentNullException("lengthAsDouble");
             }
-            _lengthAsString = lengthAsString;
+            _lengthAsDouble = lengthAsDouble;
         }
 
         public int Value
         {
-            get { return Convert.ToInt32(_lengthAsString); }
+            get { return Convert.ToInt32(_lengthAsDouble); }
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
-using TestDataGenerator.Core;
 using TestDataGenerator.Internal;
 
 namespace TestDataGenerator
@@ -18,14 +16,14 @@ namespace TestDataGenerator
         public MainWindow()
         {
             InitializeComponent();
-            ValidateForm();
             TestDataLength.Focus();
             DataType.Text = "Letters";
+            TestDataLength.Value = 1;
         }
 
         private void CallGetTestData()
         {
-            var testDataLengh = new GetTestDataLengh(TestDataLength.Text);
+            var testDataLengh = new GetTestDataLengh(TestDataLength.Value);
             var testDataType = new GetTestDataType(DataType.Text);
             var testDataCharPool = new TestDataCharPool();
             var testData = new GetTestData(testDataLengh, testDataType, testDataCharPool);
@@ -64,24 +62,6 @@ namespace TestDataGenerator
         private void CopyToClipboardOnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(Output.Text);
-        }
-
-        private void ValidateForm()
-        {
-            var testDataLenghtIsNotNullOrWhiteSpace = !string.IsNullOrWhiteSpace(TestDataLength.Text);
-            Generator.IsEnabled = testDataLenghtIsNotNullOrWhiteSpace;
-            CopyToClipboard.IsEnabled = testDataLenghtIsNotNullOrWhiteSpace;
-        }
-
-        private void TestDataLengthTextChanged(object sender, TextChangedEventArgs e)
-        {
-            TestDataLength.ProhibitLettersToAllowOnlyNumbers();
-            ValidateForm();
-        }
-
-        private void DataTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ValidateForm();
         }
     }
 }
