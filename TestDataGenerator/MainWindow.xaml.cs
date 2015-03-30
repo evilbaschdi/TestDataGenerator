@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
 using TestDataGenerator.Internal;
@@ -8,14 +10,17 @@ namespace TestDataGenerator
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
         // ReSharper restore RedundantExtendsListEntry
     {
+        private readonly ApplicationStyle _style;
+
         public MainWindow()
         {
+            _style = new ApplicationStyle(this);
             InitializeComponent();
+            _style.Load();
             TestDataLength.Focus();
             DataType.Text = "Letters";
             TestDataLength.Value = 1;
@@ -62,6 +67,52 @@ namespace TestDataGenerator
         private void CopyToClipboardOnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(Output.Text);
+        }
+
+        private void ToggleSettingsFlyoutClick(object sender, RoutedEventArgs e)
+        {
+            ToggleFlyout(0);
+        }
+
+        private void ToggleFlyout(int index, bool stayOpen = false)
+        {
+            var activeFlyout = (Flyout) Flyouts.Items[index];
+            if(activeFlyout == null)
+            {
+                return;
+            }
+
+            foreach(
+                var nonactiveFlyout in
+                    Flyouts.Items.Cast<Flyout>()
+                        .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
+            {
+                nonactiveFlyout.IsOpen = false;
+            }
+
+            if(activeFlyout.IsOpen && stayOpen)
+            {
+                activeFlyout.IsOpen = true;
+            }
+            else
+            {
+                activeFlyout.IsOpen = !activeFlyout.IsOpen;
+            }
+        }
+
+        private void SaveStyleClick(object sender, RoutedEventArgs e)
+        {
+            _style.SaveStyle();
+        }
+
+        private void Theme(object sender, RoutedEventArgs e)
+        {
+            _style.SetTheme(sender, e);
+        }
+
+        private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _style.SetAccent(sender, e);
         }
     }
 }
