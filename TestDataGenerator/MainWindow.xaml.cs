@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using MahApps.Metro.Controls;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MahApps.Metro.Controls;
 using TestDataGenerator.Internal;
 
 namespace TestDataGenerator
@@ -12,7 +12,7 @@ namespace TestDataGenerator
     /// </summary>
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-        // ReSharper restore RedundantExtendsListEntry
+    // ReSharper restore RedundantExtendsListEntry
     {
         private readonly ApplicationStyle _style;
 
@@ -42,7 +42,7 @@ namespace TestDataGenerator
 
         private void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Return:
                     CallGetTestData();
@@ -56,7 +56,7 @@ namespace TestDataGenerator
 
         private void DataTypeOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Return:
                     CallGetTestData();
@@ -69,6 +69,8 @@ namespace TestDataGenerator
             Clipboard.SetText(Output.Text);
         }
 
+        #region Flyout
+
         private void ToggleSettingsFlyoutClick(object sender, RoutedEventArgs e)
         {
             ToggleFlyout(0);
@@ -76,13 +78,13 @@ namespace TestDataGenerator
 
         private void ToggleFlyout(int index, bool stayOpen = false)
         {
-            var activeFlyout = (Flyout) Flyouts.Items[index];
-            if(activeFlyout == null)
+            var activeFlyout = (Flyout)Flyouts.Items[index];
+            if (activeFlyout == null)
             {
                 return;
             }
 
-            foreach(
+            foreach (
                 var nonactiveFlyout in
                     Flyouts.Items.Cast<Flyout>()
                         .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
@@ -90,7 +92,7 @@ namespace TestDataGenerator
                 nonactiveFlyout.IsOpen = false;
             }
 
-            if(activeFlyout.IsOpen && stayOpen)
+            if (activeFlyout.IsOpen && stayOpen)
             {
                 activeFlyout.IsOpen = true;
             }
@@ -99,6 +101,10 @@ namespace TestDataGenerator
                 activeFlyout.IsOpen = !activeFlyout.IsOpen;
             }
         }
+
+        #endregion Flyout
+
+        #region Style
 
         private void SaveStyleClick(object sender, RoutedEventArgs e)
         {
@@ -114,5 +120,7 @@ namespace TestDataGenerator
         {
             _style.SetAccent(sender, e);
         }
+
+        #endregion Style
     }
 }

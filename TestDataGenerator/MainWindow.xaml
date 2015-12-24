@@ -22,6 +22,7 @@
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
+    <!-- Grid -->
     <Grid>
         <!--  Data Controls (TextBoxes, ComboBoxes...)  -->
         <controls:NumericUpDown Name="TestDataLength" Height="23" Margin="100,10,10,0" VerticalAlignment="Top" KeyDown="TestDataLengthOnKeyDown" Minimum="1" />
