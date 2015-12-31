@@ -38,10 +38,10 @@
             <ComboBoxItem Content="Guids (braces)" />
             <ComboBoxItem Content="Guids (parentheses)" />
         </ComboBox>
-        <TextBox Name="Output" Margin="100,106,10,10" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="Output" Margin="100,106,10,10" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
         <!--  Button  -->
         <Button x:Name="Generator" Margin="0,72,95,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="GenerateOutputOnClick" Content="Generate" />
-        <Button Name="CopyToClipboard" Margin="0,72,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CopyToClipboardOnClick" Content="Clipboard" />
+        <Button x:Name="CopyToClipboard" Margin="0,72,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CopyToClipboardOnClick" Content="Clipboard" />
 
         <!--  Label  -->
         <Label Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Lenght, Count:" />
