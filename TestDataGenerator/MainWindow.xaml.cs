@@ -1,8 +1,11 @@
-﻿using MahApps.Metro.Controls;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using EvilBaschdi.Core.Application;
+using EvilBaschdi.Core.Wpf;
+using MahApps.Metro.Controls;
+using TestDataGenerator.Core;
 using TestDataGenerator.Internal;
 
 namespace TestDataGenerator
@@ -12,18 +15,28 @@ namespace TestDataGenerator
     /// </summary>
     // ReSharper disable RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-    // ReSharper restore RedundantExtendsListEntry
+        // ReSharper restore RedundantExtendsListEntry
     {
-        private readonly ApplicationStyle _style;
+        private readonly IMetroStyle _style;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private readonly ISettings _coreSettings;
+        private int _overrideProtection;
 
         public MainWindow()
         {
-            _style = new ApplicationStyle(this);
+            _coreSettings = new CoreSettings();
             InitializeComponent();
+            _style = new MetroStyle(this, Accent, Dark, Light, _coreSettings);
             _style.Load();
+            Load();
+        }
+
+        private void Load()
+        {
             TestDataLength.Focus();
             DataType.Text = "Letters";
             TestDataLength.Value = 1;
+            _overrideProtection = 1;
         }
 
         private void CallGetTestData()
@@ -42,7 +55,7 @@ namespace TestDataGenerator
 
         private void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            switch(e.Key)
             {
                 case Key.Return:
                     CallGetTestData();
@@ -56,7 +69,7 @@ namespace TestDataGenerator
 
         private void DataTypeOnKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            switch(e.Key)
             {
                 case Key.Return:
                     CallGetTestData();
@@ -78,13 +91,13 @@ namespace TestDataGenerator
 
         private void ToggleFlyout(int index, bool stayOpen = false)
         {
-            var activeFlyout = (Flyout)Flyouts.Items[index];
-            if (activeFlyout == null)
+            var activeFlyout = (Flyout) Flyouts.Items[index];
+            if(activeFlyout == null)
             {
                 return;
             }
 
-            foreach (
+            foreach(
                 var nonactiveFlyout in
                     Flyouts.Items.Cast<Flyout>()
                         .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
@@ -92,7 +105,7 @@ namespace TestDataGenerator
                 nonactiveFlyout.IsOpen = false;
             }
 
-            if (activeFlyout.IsOpen && stayOpen)
+            if(activeFlyout.IsOpen && stayOpen)
             {
                 activeFlyout.IsOpen = true;
             }
@@ -104,23 +117,35 @@ namespace TestDataGenerator
 
         #endregion Flyout
 
-        #region Style
+        #region MetroStyle
 
         private void SaveStyleClick(object sender, RoutedEventArgs e)
         {
+            if(_overrideProtection == 0)
+            {
+                return;
+            }
             _style.SaveStyle();
         }
 
         private void Theme(object sender, RoutedEventArgs e)
         {
+            if(_overrideProtection == 0)
+            {
+                return;
+            }
             _style.SetTheme(sender, e);
         }
 
         private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(_overrideProtection == 0)
+            {
+                return;
+            }
             _style.SetAccent(sender, e);
         }
 
-        #endregion Style
+        #endregion MetroStyle
     }
 }
