@@ -2,6 +2,8 @@
 
 namespace TestDataGenerator.Internal
 {
+    /// <summary>
+    /// </summary>
     public class GetTestData : ITestData
     {
         private readonly ITestDataLengh _testDataLengh;
@@ -15,21 +17,23 @@ namespace TestDataGenerator.Internal
         {
             if(testDataLengh == null)
             {
-                throw new ArgumentNullException("testDataLengh");
+                throw new ArgumentNullException(nameof(testDataLengh));
             }
             if(testDataType == null)
             {
-                throw new ArgumentNullException("testDataType");
+                throw new ArgumentNullException(nameof(testDataType));
             }
             if(testDataCharPool == null)
             {
-                throw new ArgumentNullException("testDataCharPool");
+                throw new ArgumentNullException(nameof(testDataCharPool));
             }
             _testDataLengh = testDataLengh;
             _testDataType = testDataType;
             _testDataCharPool = testDataCharPool;
         }
 
+        /// <summary>
+        /// </summary>
         public string Value
         {
             get

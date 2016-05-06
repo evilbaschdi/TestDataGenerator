@@ -4,14 +4,15 @@
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="Test Data Generator" Width="500" Height="350"
                       GlowBrush="{DynamicResource AccentColorBrush}"
-                      Icon="metro.ico" ResizeMode="CanMinimize">
+                      Icon="b.ico" ResizeMode="CanMinimize">
     <!--  RightWindowCommands  -->
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <!--  Settings  -->
             <Button Click="ToggleSettingsFlyoutClick">
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle Width="20" Height="20"
+                               Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
                         </Rectangle.OpacityMask>
@@ -25,7 +26,8 @@
     <!-- Grid -->
     <Grid>
         <!--  Data Controls (TextBoxes, ComboBoxes...)  -->
-        <controls:NumericUpDown Name="TestDataLength" Height="23" Margin="100,10,10,0" VerticalAlignment="Top" KeyDown="TestDataLengthOnKeyDown" Minimum="1" />
+        <controls:NumericUpDown Name="TestDataLength" Height="23" Margin="100,10,10,0" VerticalAlignment="Top"
+                                KeyDown="TestDataLengthOnKeyDown" Minimum="1" />
         <ComboBox Name="DataType" Height="23" Margin="100,41,10,0" VerticalAlignment="Top" KeyDown="DataTypeOnKeyDown">
             <ComboBoxItem Content="Letters" />
             <ComboBoxItem Content="Numbers" />
@@ -38,10 +40,13 @@
             <ComboBoxItem Content="Guids (braces)" />
             <ComboBoxItem Content="Guids (parentheses)" />
         </ComboBox>
-        <TextBox x:Name="Output" Margin="100,106,10,10" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="Output" Margin="100,106,10,10" IsReadOnly="True" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" />
         <!--  Button  -->
-        <Button x:Name="Generator" Margin="0,72,95,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="GenerateOutputOnClick" Content="Generate" />
-        <Button x:Name="CopyToClipboard" Margin="0,72,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CopyToClipboardOnClick" Content="Clipboard" />
+        <Button x:Name="Generator" Margin="0,72,95,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Click="GenerateOutputOnClick" Content="Generate" />
+        <Button x:Name="CopyToClipboard" Margin="0,72,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Click="CopyToClipboardOnClick" Content="Clipboard" />
 
         <!--  Label  -->
         <Label Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Lenght, Count:" />
@@ -52,25 +57,30 @@
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <!--  Settings Flyout  -->
-            <controls:Flyout Name="SettingsFlyout" Width="250" AnimateOnPositionChange="True" AnimateOpacity="True" Header="settings" Position="Right" Theme="Accent">
+            <controls:Flyout Name="SettingsFlyout" Width="250" AnimateOnPositionChange="True" AnimateOpacity="True"
+                             Header="settings" Position="Right" Theme="Accent">
                 <StackPanel>
                     <!-- Theme -->
                     <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Theme:" />
+                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Content="Theme:" />
                         <RadioButton Name="Dark" Margin="10,0,5,0" Checked="Theme" Content="Dark" />
                         <RadioButton Name="Light" Margin="10,0,5,0" Checked="Theme" Content="Light" IsChecked="True" />
                     </StackPanel>
                     <!-- Accent -->
                     <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Accent:" />
-                        <ComboBox Name="Accent" Width="165" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                SelectionChanged="AccentOnSelectionChanged" />
+                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Content="Accent:" />
+                        <ComboBox Name="Accent" Width="165" Margin="10,5,0,0" HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  SelectionChanged="AccentOnSelectionChanged" />
                     </StackPanel>
                     <!-- Save Style -->
                     <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
                         <Button Name="SaveStyle" Width="165" Margin="60,5,0,0" Click="SaveStyleClick">
                             <StackPanel Orientation="Horizontal">
-                                <Rectangle Width="16" Height="16" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                                <Rectangle Width="16" Height="16"
+                                           Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
                                     <Rectangle.OpacityMask>
                                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
                                     </Rectangle.OpacityMask>

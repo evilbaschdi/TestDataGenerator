@@ -2,25 +2,24 @@
 
 namespace TestDataGenerator.Internal
 {
+    /// <summary>
+    /// </summary>
     public class GetTestDataType : ITestDataType
     {
-        private readonly string _testDataTypeString;
-
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
         public GetTestDataType(string testDataTypeString)
         {
-            if (testDataTypeString == null)
+            if(testDataTypeString == null)
             {
-                throw new ArgumentNullException("testDataTypeString");
+                throw new ArgumentNullException(nameof(testDataTypeString));
             }
-            _testDataTypeString = testDataTypeString;
+            Value = testDataTypeString;
         }
 
-        public string Value
-        {
-            get { return _testDataTypeString; }
-        }
+        /// <summary>
+        /// </summary>
+        public string Value { get; }
     }
 }

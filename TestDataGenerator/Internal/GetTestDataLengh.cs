@@ -2,6 +2,8 @@
 
 namespace TestDataGenerator.Internal
 {
+    /// <summary>
+    /// </summary>
     public class GetTestDataLengh : ITestDataLengh
     {
         private readonly double? _lengthAsDouble;
@@ -13,11 +15,13 @@ namespace TestDataGenerator.Internal
         {
             if(lengthAsDouble == null)
             {
-                throw new ArgumentNullException("lengthAsDouble");
+                throw new ArgumentNullException(nameof(lengthAsDouble));
             }
             _lengthAsDouble = lengthAsDouble;
         }
 
+        /// <summary>
+        /// </summary>
         public int Value
         {
             get { return Convert.ToInt32(_lengthAsDouble); }

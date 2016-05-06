@@ -2,6 +2,8 @@
 
 namespace TestDataGenerator.Internal
 {
+    /// <summary>
+    /// </summary>
     public class GenerateTestData : IGenerator
     {
         private readonly int _length;
@@ -16,12 +18,14 @@ namespace TestDataGenerator.Internal
         {
             if(charPool == null)
             {
-                throw new ArgumentNullException("charPool");
+                throw new ArgumentNullException(nameof(charPool));
             }
             _length = length;
             _charPool = charPool;
         }
 
+        /// <summary>
+        /// </summary>
         public string Value
         {
             get

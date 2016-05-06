@@ -22,6 +22,8 @@ namespace TestDataGenerator
         private readonly ISettings _coreSettings;
         private int _overrideProtection;
 
+        /// <summary>
+        /// </summary>
         public MainWindow()
         {
             _coreSettings = new CoreSettings();
@@ -100,7 +102,7 @@ namespace TestDataGenerator
             foreach(
                 var nonactiveFlyout in
                     Flyouts.Items.Cast<Flyout>()
-                        .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
+                           .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
             {
                 nonactiveFlyout.IsOpen = false;
             }
