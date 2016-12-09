@@ -83,12 +83,28 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EvilBaschdi.Core\EvilBaschdi.Core\EvilBaschdi.Core.csproj">
-      <Project>{8a06a423-244f-404f-aad8-53de2ee2aed7}</Project>
-      <Name>EvilBaschdi.Core</Name>
-    </ProjectReference>
+    <Reference Include="EvilBaschdi.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EvilBaschdi.Core.1.0.0.3\lib\net462\EvilBaschdi.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -123,10 +139,12 @@
     <Compile Include="Internal\GenerateTestGuids.cs">
       <DependentUpon>IGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Internal\GetTestDataLengh.cs">
+    <Compile Include="Internal\ITestDataContainer.cs" />
+    <Compile Include="Internal\TestDataContainer.cs" />
+    <Compile Include="Internal\TestDataLengh.cs">
       <DependentUpon>ITestDataLengh.cs</DependentUpon>
     </Compile>
-    <Compile Include="Internal\GetTestDataType.cs">
+    <Compile Include="Internal\TestDataType.cs">
       <DependentUpon>ITestDataType.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\IGenerator.cs" />
@@ -137,7 +155,7 @@
     <Compile Include="Internal\TestDataCharPool.cs">
       <DependentUpon>ITestDataCharPool.cs</DependentUpon>
     </Compile>
-    <Compile Include="Internal\GetTestData.cs">
+    <Compile Include="Internal\TestData.cs">
       <DependentUpon>ITestData.cs</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">

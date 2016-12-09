@@ -1,11 +1,10 @@
-﻿namespace TestDataGenerator.Internal
+﻿using EvilBaschdi.Core.DotNetExtensions;
+
+namespace TestDataGenerator.Internal
 {
     /// <summary>
     /// </summary>
-    public interface ITestDataLengh
+    public interface ITestDataLengh : IValue<int>
     {
-        /// <summary>
-        /// </summary>
-        int Value { get; }
     }
 }
