@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +13,6 @@ using EvilBaschdi.Core.Wpf;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.Unity;
-using TestDataGenerator.Core;
 using TestDataGenerator.Internal;
 
 namespace TestDataGenerator
@@ -28,21 +27,21 @@ namespace TestDataGenerator
         private readonly IMetroStyle _style;
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly ISettings _coreSettings;
-        private readonly BackgroundWorker _bw;
         private int _overrideProtection;
-        private int _executionCount;
         private ProgressDialogController _controller;
         private string _result;
         private UnityContainer _unityContainer;
+        private Task _task;
+        private CancellationTokenSource _tokenSource;
 
         /// <summary>
         /// </summary>
         public MainWindow()
         {
-            _coreSettings = new CoreSettings();
             InitializeComponent();
-            _bw = new BackgroundWorker();
-            _style = new MetroStyle(this, Accent, ThemeSwitch, _coreSettings);
+            _coreSettings = new CoreSettings(Properties.Settings.Default);
+            var themeManagerHelper = new ThemeManagerHelper();
+            _style = new MetroStyle(this, Accent, ThemeSwitch, _coreSettings, themeManagerHelper);
             _style.Load(true);
             var linkerTime = Assembly.GetExecutingAssembly().GetLinkerTime();
             LinkerTime.Content = linkerTime.ToString(CultureInfo.InvariantCulture);
@@ -57,62 +56,52 @@ namespace TestDataGenerator
             _overrideProtection = 1;
         }
 
-        private void CallBackgroundWorkerConfiguration()
+        #region Process Generation
+
+        private async Task RunTestDataGenerationConfigurationAsync()
         {
+            TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
+            Cursor = Cursors.Wait;
+
             _unityContainer = new UnityContainer();
             _unityContainer.RegisterInstance(TestDataLength.Value);
             _unityContainer.RegisterInstance(DataType.Text);
-            TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
-            var configureBackroundWorker = ConfigureBackroundWorker();
-            if(configureBackroundWorker.IsCompleted || configureBackroundWorker.IsCanceled)
-            {
-                configureBackroundWorker.Dispose();
-            }
-        }
 
-        private void RunTestDataGeneration()
-        {
-            var testDataContainer = new TestDataContainer(_unityContainer);
-            var container = testDataContainer.Value;
-            _result = container.Resolve<ITestData>().Value;
-        }
-
-        #region BackroundWorker
-
-        private async Task ConfigureBackroundWorker()
-        {
-            _executionCount++;
-
-            Cursor = Cursors.Wait;
-
-            if(_executionCount == 1)
-            {
-                _bw.DoWork += (o, args) => RunTestDataGeneration();
-                _bw.WorkerReportsProgress = true;
-                _bw.WorkerSupportsCancellation = true;
-                _bw.RunWorkerCompleted += BackgroundWorkerRunWorkerCompleted;
-            }
             var options = new MetroDialogSettings
                           {
-                              ColorScheme = MetroDialogColorScheme.Theme
+                              ColorScheme = MetroDialogColorScheme.Accented
                           };
 
             MetroDialogOptions = options;
             _controller = await this.ShowProgressAsync("Please wait...", "Testdata are getting generated.", true, options);
             _controller.SetIndeterminate();
             _controller.Canceled += ControllerCanceled;
-            _bw.RunWorkerAsync();
+
+            _tokenSource = new CancellationTokenSource();
+            var token = _tokenSource.Token;
+            _task = Task.Factory.StartNew(() => RunTestDataGeneration(token), token);
+            await _task;
+            _task.GetAwaiter().OnCompleted(TaskCompleted);
         }
 
-        private void BackgroundWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void TaskCompleted()
         {
             _controller.CloseAsync();
             _controller.Closed += ControllerClosed;
         }
 
-        #endregion BackroundWorker
+        private void RunTestDataGeneration(CancellationToken ct)
+        {
+            Thread.Sleep(50000);
+            var testDataContainer = new TestDataContainer(_unityContainer);
+            var container = testDataContainer.Value;
+            _result = container.Resolve<ITestData>().Value;
 
-        #region Process Controller
+            if(ct.IsCancellationRequested)
+            {
+                ct.ThrowIfCancellationRequested();
+            }
+        }
 
         private void ControllerClosed(object sender, EventArgs e)
         {
@@ -125,22 +114,23 @@ namespace TestDataGenerator
 
         private void ControllerCanceled(object sender, EventArgs e)
         {
-            _bw.CancelAsync();
+            _tokenSource.Cancel();
+            TaskCompleted();
         }
 
-        #endregion Process Controller
+        #endregion Process Generation
 
-        private void GenerateOutputOnClick(object sender, RoutedEventArgs e)
+        private async void GenerateOutputOnClick(object sender, RoutedEventArgs e)
         {
-            CallBackgroundWorkerConfiguration();
+            await RunTestDataGenerationConfigurationAsync();
         }
 
-        private void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
+        private async void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
         {
             switch(e.Key)
             {
                 case Key.Return:
-                    CallBackgroundWorkerConfiguration();
+                    await RunTestDataGenerationConfigurationAsync();
                     break;
 
                 case Key.Tab:
@@ -149,12 +139,12 @@ namespace TestDataGenerator
             }
         }
 
-        private void DataTypeOnKeyDown(object sender, KeyEventArgs e)
+        private async void DataTypeOnKeyDown(object sender, KeyEventArgs e)
         {
             switch(e.Key)
             {
                 case Key.Return:
-                    CallBackgroundWorkerConfiguration();
+                    await RunTestDataGenerationConfigurationAsync();
                     break;
             }
         }
