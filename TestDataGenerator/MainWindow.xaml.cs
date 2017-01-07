@@ -31,8 +31,6 @@ namespace TestDataGenerator
         private ProgressDialogController _controller;
         private string _result;
         private UnityContainer _unityContainer;
-        private Task _task;
-        private CancellationTokenSource _tokenSource;
 
         /// <summary>
         /// </summary>
@@ -72,35 +70,44 @@ namespace TestDataGenerator
                               ColorScheme = MetroDialogColorScheme.Accented
                           };
 
+            var tokenSource = new CancellationTokenSource();
+
             MetroDialogOptions = options;
             _controller = await this.ShowProgressAsync("Please wait...", "Testdata are getting generated.", true, options);
             _controller.SetIndeterminate();
-            _controller.Canceled += ControllerCanceled;
-
-            _tokenSource = new CancellationTokenSource();
-            var token = _tokenSource.Token;
-            _task = Task.Factory.StartNew(() => RunTestDataGeneration(token), token);
-            await _task;
-            _task.GetAwaiter().OnCompleted(TaskCompleted);
-        }
-
-        private void TaskCompleted()
-        {
-            _controller.CloseAsync();
+            _controller.Canceled += (_, __) => tokenSource.Cancel();
             _controller.Closed += ControllerClosed;
+
+            var token = tokenSource.Token;
+
+            try
+            {
+                await Task.Run(() => RunTestDataGeneration(token), token);
+            }
+            catch (OperationCanceledException)
+            {
+                // Cancelling an awaited Task throws an OperationCanceledException.
+                // We just want nothing to happen, but the application shouldn't crash.
+            }
+
+            await _controller.CloseAsync();
         }
 
         private void RunTestDataGeneration(CancellationToken ct)
         {
-            Thread.Sleep(50000);
+            for (var i = 0; i < 10; i++)
+            {
+                Thread.Sleep(5000);
+
+                if (ct.IsCancellationRequested)
+                {
+                    ct.ThrowIfCancellationRequested();
+                }
+            }
+
             var testDataContainer = new TestDataContainer(_unityContainer);
             var container = testDataContainer.Value;
             _result = container.Resolve<ITestData>().Value;
-
-            if(ct.IsCancellationRequested)
-            {
-                ct.ThrowIfCancellationRequested();
-            }
         }
 
         private void ControllerClosed(object sender, EventArgs e)
@@ -110,12 +117,6 @@ namespace TestDataGenerator
             Cursor = Cursors.Arrow;
 
             Output.Text = _result;
-        }
-
-        private void ControllerCanceled(object sender, EventArgs e)
-        {
-            _tokenSource.Cancel();
-            TaskCompleted();
         }
 
         #endregion Process Generation
