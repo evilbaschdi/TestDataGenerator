@@ -14,7 +14,7 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public TestDataLengh(double? lengthAsDouble)
         {
-            if(lengthAsDouble == null)
+            if (lengthAsDouble == null)
             {
                 throw new ArgumentNullException(nameof(lengthAsDouble));
             }
@@ -32,7 +32,7 @@ namespace TestDataGenerator.Internal
                 {
                     result = (int) (_lengthAsDouble ?? 1);
                 }
-                catch(Exception exception)
+                catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
                 }

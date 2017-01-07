@@ -11,7 +11,7 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public TestDataType(string testDataTypeString)
         {
-            if(testDataTypeString == null)
+            if (testDataTypeString == null)
             {
                 throw new ArgumentNullException(nameof(testDataTypeString));
             }

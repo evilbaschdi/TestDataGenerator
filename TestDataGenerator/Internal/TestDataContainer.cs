@@ -15,7 +15,7 @@ namespace TestDataGenerator.Internal
         /// <param name="unityContainer"></param>
         public TestDataContainer(UnityContainer unityContainer)
         {
-            if(unityContainer == null)
+            if (unityContainer == null)
             {
                 throw new ArgumentNullException(nameof(unityContainer));
             }

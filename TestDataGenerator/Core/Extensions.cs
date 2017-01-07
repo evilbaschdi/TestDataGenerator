@@ -15,7 +15,7 @@ namespace TestDataGenerator.Core
         public static void ProhibitLettersToAllowOnlyNumbers(this TextBox box)
         {
             // stop multiple changes;
-            if(_textBoxChanging)
+            if (_textBoxChanging)
             {
                 return;
             }
@@ -23,7 +23,7 @@ namespace TestDataGenerator.Core
 
             var text = box.Text;
 
-            if(text == "")
+            if (text == "")
             {
                 return;
             }
@@ -31,12 +31,12 @@ namespace TestDataGenerator.Core
             var validText = "";
             var pos = box.SelectionStart;
 
-            for(var i = 0; i < text.Length; i++)
+            for (var i = 0; i < text.Length; i++)
             {
                 var s = text[i];
-                if(s < '0' || s > '9')
+                if (s < '0' || s > '9')
                 {
-                    if(i <= pos)
+                    if (i <= pos)
                     {
                         pos--;
                     }
@@ -48,16 +48,16 @@ namespace TestDataGenerator.Core
             }
 
             // trim starting 00s
-            while(validText.Length >= 2 && validText.StartsWith("00"))
+            while (validText.Length >= 2 && validText.StartsWith("00"))
             {
                 validText = validText.Substring(1);
-                if(pos < 2)
+                if (pos < 2)
                 {
                     pos--;
                 }
             }
 
-            if(pos > validText.Length)
+            if (pos > validText.Length)
             {
                 pos = validText.Length;
             }

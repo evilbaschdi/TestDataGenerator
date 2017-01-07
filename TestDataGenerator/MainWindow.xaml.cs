@@ -97,8 +97,6 @@ namespace TestDataGenerator
         {
             for (var i = 0; i < 10; i++)
             {
-                Thread.Sleep(5000);
-
                 if (ct.IsCancellationRequested)
                 {
                     ct.ThrowIfCancellationRequested();
@@ -121,14 +119,14 @@ namespace TestDataGenerator
 
         #endregion Process Generation
 
-        private async void GenerateOutputOnClick(object sender, RoutedEventArgs e)
+        private async void GenerateOutputOnClickAsync(object sender, RoutedEventArgs e)
         {
             await RunTestDataGenerationConfigurationAsync();
         }
 
-        private async void TestDataLengthOnKeyDown(object sender, KeyEventArgs e)
+        private async void TestDataLengthOnKeyDownAsync(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Return:
                     await RunTestDataGenerationConfigurationAsync();
@@ -140,9 +138,9 @@ namespace TestDataGenerator
             }
         }
 
-        private async void DataTypeOnKeyDown(object sender, KeyEventArgs e)
+        private async void DataTypeOnKeyDownAsync(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Return:
                     await RunTestDataGenerationConfigurationAsync();
@@ -165,12 +163,12 @@ namespace TestDataGenerator
         private void ToggleFlyout(int index, bool stayOpen = false)
         {
             var activeFlyout = (Flyout) Flyouts.Items[index];
-            if(activeFlyout == null)
+            if (activeFlyout == null)
             {
                 return;
             }
 
-            foreach(
+            foreach (
                 var nonactiveFlyout in
                 Flyouts.Items.Cast<Flyout>()
                        .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
@@ -178,7 +176,7 @@ namespace TestDataGenerator
                 nonactiveFlyout.IsOpen = false;
             }
 
-            if(activeFlyout.IsOpen && stayOpen)
+            if (activeFlyout.IsOpen && stayOpen)
             {
                 activeFlyout.IsOpen = true;
             }
@@ -194,7 +192,7 @@ namespace TestDataGenerator
 
         private void SaveStyleClick(object sender, RoutedEventArgs e)
         {
-            if(_overrideProtection == 0)
+            if (_overrideProtection == 0)
             {
                 return;
             }
@@ -203,12 +201,12 @@ namespace TestDataGenerator
 
         private void Theme(object sender, EventArgs e)
         {
-            if(_overrideProtection == 0)
+            if (_overrideProtection == 0)
             {
                 return;
             }
             var routedEventArgs = e as RoutedEventArgs;
-            if(routedEventArgs != null)
+            if (routedEventArgs != null)
             {
                 _style.SetTheme(sender, routedEventArgs);
             }
@@ -220,7 +218,7 @@ namespace TestDataGenerator
 
         private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(_overrideProtection == 0)
+            if (_overrideProtection == 0)
             {
                 return;
             }

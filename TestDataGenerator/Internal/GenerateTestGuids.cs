@@ -19,11 +19,11 @@ namespace TestDataGenerator.Internal
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <see langword="null" />.</exception>
         public GenerateTestGuids(int count, string type)
         {
-            if(count <= 0)
+            if (count <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
-            if(type == null)
+            if (type == null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
@@ -37,7 +37,7 @@ namespace TestDataGenerator.Internal
         {
             get
             {
-                for(var i = 0; i < _count; i++)
+                for (var i = 0; i < _count; i++)
                 {
                     _guids.Append($"{Guid.NewGuid().ToString(_type)}");
                     _guids.AppendLine();

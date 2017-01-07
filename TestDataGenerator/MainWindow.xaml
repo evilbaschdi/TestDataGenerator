@@ -31,8 +31,8 @@
     <Grid>
         <!--  Data Controls (TextBoxes, ComboBoxes...)  -->
         <controls:NumericUpDown Name="TestDataLength" Height="23" Margin="100,10,10,0" VerticalAlignment="Top"
-                                KeyDown="TestDataLengthOnKeyDown" Minimum="1" />
-        <ComboBox Name="DataType" Height="23" Margin="100,41,10,0" VerticalAlignment="Top" KeyDown="DataTypeOnKeyDown">
+                                KeyDown="TestDataLengthOnKeyDownAsync" Minimum="1" />
+        <ComboBox Name="DataType" Height="23" Margin="100,41,10,0" VerticalAlignment="Top" KeyDown="DataTypeOnKeyDownAsync">
             <ComboBoxItem Content="Letters" />
             <ComboBoxItem Content="Numbers" />
             <ComboBoxItem Content="Capital Letters" />
@@ -48,7 +48,7 @@
                  VerticalScrollBarVisibility="Auto" />
         <!--  Button  -->
         <Button x:Name="Generator" Margin="0,72,95,0" HorizontalAlignment="Right" VerticalAlignment="Top"
-                Click="GenerateOutputOnClick" Content="Generate" />
+                Click="GenerateOutputOnClickAsync" Content="Generate" />
         <Button x:Name="CopyToClipboard" Margin="0,72,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"
                 Click="CopyToClipboardOnClick" Content="Clipboard" />
 

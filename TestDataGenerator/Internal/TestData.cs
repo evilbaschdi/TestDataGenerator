@@ -15,15 +15,15 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public TestData(ITestDataLengh testDataLengh, ITestDataType testDataType, ITestDataCharPool testDataCharPool)
         {
-            if(testDataLengh == null)
+            if (testDataLengh == null)
             {
                 throw new ArgumentNullException(nameof(testDataLengh));
             }
-            if(testDataType == null)
+            if (testDataType == null)
             {
                 throw new ArgumentNullException(nameof(testDataType));
             }
-            if(testDataCharPool == null)
+            if (testDataCharPool == null)
             {
                 throw new ArgumentNullException(nameof(testDataCharPool));
             }
@@ -38,7 +38,7 @@ namespace TestDataGenerator.Internal
         {
             get
             {
-                switch(_testDataType.Value)
+                switch (_testDataType.Value)
                 {
                     case "Letters":
                         return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.Letters).Value;
