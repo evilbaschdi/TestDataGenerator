@@ -9,9 +9,9 @@ namespace TestDataGenerator.Core
         private static bool _textBoxChanging;
 
         /// <summary>
-        ///     Modifies the entered text of a textbox to accept only numbers.
+        ///     Modifies the entered text of a TextBox to accept only numbers.
         /// </summary>
-        /// <param name="box">Textbox to modify.</param>
+        /// <param name="box">TextBox to modify.</param>
         public static void ProhibitLettersToAllowOnlyNumbers(this TextBox box)
         {
             // stop multiple changes;

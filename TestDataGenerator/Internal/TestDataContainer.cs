@@ -28,7 +28,7 @@ namespace TestDataGenerator.Internal
         {
             get
             {
-                _unityContainer.RegisterType<ITestDataLengh, TestDataLengh>();
+                _unityContainer.RegisterType<ITestDataLength, TestDataLength>();
                 _unityContainer.RegisterType<ITestDataType, TestDataType>();
                 _unityContainer.RegisterType<ITestDataCharPool, TestDataCharPool>();
                 _unityContainer.RegisterType<ITestData, TestData>();

@@ -6,18 +6,18 @@ namespace TestDataGenerator.Internal
     /// </summary>
     public class TestData : ITestData
     {
-        private readonly ITestDataLengh _testDataLengh;
+        private readonly ITestDataLength _testDataLength;
         private readonly ITestDataType _testDataType;
         private readonly ITestDataCharPool _testDataCharPool;
 
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        public TestData(ITestDataLengh testDataLengh, ITestDataType testDataType, ITestDataCharPool testDataCharPool)
+        public TestData(ITestDataLength testDataLength, ITestDataType testDataType, ITestDataCharPool testDataCharPool)
         {
-            if (testDataLengh == null)
+            if (testDataLength == null)
             {
-                throw new ArgumentNullException(nameof(testDataLengh));
+                throw new ArgumentNullException(nameof(testDataLength));
             }
             if (testDataType == null)
             {
@@ -27,7 +27,7 @@ namespace TestDataGenerator.Internal
             {
                 throw new ArgumentNullException(nameof(testDataCharPool));
             }
-            _testDataLengh = testDataLengh;
+            _testDataLength = testDataLength;
             _testDataType = testDataType;
             _testDataCharPool = testDataCharPool;
         }
@@ -41,37 +41,37 @@ namespace TestDataGenerator.Internal
                 switch (_testDataType.Value)
                 {
                     case "Letters":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.Letters).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.Letters).Value;
 
                     case "Numbers":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.Numbers).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.Numbers).Value;
 
                     case "Capital Letters":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.CapitalLetters).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.CapitalLetters).Value;
 
                     case "Small Letters":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.SmallLetters).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.SmallLetters).Value;
 
                     case "Letters and Numbers":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.LettersNumbers).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.LettersNumbers).Value;
 
                     case "Letters, Numbers and Signs":
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.LettersNumbersSigns).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.LettersNumbersSigns).Value;
 
                     case "Guids (digits)":
-                        return new GenerateTestGuids(_testDataLengh.Value, "N").Value;
+                        return new GenerateTestGuids(_testDataLength.Value, "N").Value;
 
                     case "Guids (hyphens)":
-                        return new GenerateTestGuids(_testDataLengh.Value, "D").Value;
+                        return new GenerateTestGuids(_testDataLength.Value, "D").Value;
 
                     case "Guids (braces)":
-                        return new GenerateTestGuids(_testDataLengh.Value, "B").Value;
+                        return new GenerateTestGuids(_testDataLength.Value, "B").Value;
 
                     case "Guids (parentheses)":
-                        return new GenerateTestGuids(_testDataLengh.Value, "P").Value;
+                        return new GenerateTestGuids(_testDataLength.Value, "P").Value;
 
                     default:
-                        return new GenerateTestData(_testDataLengh.Value, _testDataCharPool.LettersNumbersSigns).Value;
+                        return new GenerateTestData(_testDataLength.Value, _testDataCharPool.LettersNumbersSigns).Value;
                 }
             }
         }

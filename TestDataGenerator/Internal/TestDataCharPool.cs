@@ -6,51 +6,30 @@
     {
         /// <summary>
         /// </summary>
-        public string CapitalLetters
-        {
-            get { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; }
-        }
+        public string CapitalLetters => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         /// <summary>
         /// </summary>
-        public string SmallLetters
-        {
-            get { return "abcdefghijklmnopqrstuvwyxz"; }
-        }
+        public string SmallLetters => "abcdefghijklmnopqrstuvwyxz";
 
         /// <summary>
         /// </summary>
-        public string Numbers
-        {
-            get { return "1234567890"; }
-        }
+        public string Numbers => "1234567890";
 
         /// <summary>
         /// </summary>
-        public string Signs
-        {
-            get { return @"@€!§$%&/(){}[]\=?+*~#,;.:"; }
-        }
+        public string Signs => @"@€!§$%&/(){}[]\=?+*~#,;.:";
 
         /// <summary>
         /// </summary>
-        public string Letters
-        {
-            get { return $"{CapitalLetters}{SmallLetters}"; }
-        }
+        public string Letters => $"{CapitalLetters}{SmallLetters}";
 
         /// <summary>
         /// </summary>
-        public string LettersNumbers
-        {
-            get { return $"{Letters}{Numbers}"; }
-        }
+        public string LettersNumbers => $"{Letters}{Numbers}";
 
         /// <summary>
         /// </summary>
-        public string LettersNumbersSigns
-        {
-            get { return $"{LettersNumbers}{Signs}"; }
-        }
+        public string LettersNumbersSigns => $"{LettersNumbers}{Signs}";
     }
 }

@@ -5,14 +5,14 @@ namespace TestDataGenerator.Internal
 {
     /// <summary>
     /// </summary>
-    public class TestDataLengh : ITestDataLengh
+    public class TestDataLength : ITestDataLength
     {
         private readonly double? _lengthAsDouble;
 
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        public TestDataLengh(double? lengthAsDouble)
+        public TestDataLength(double? lengthAsDouble)
         {
             if (lengthAsDouble == null)
             {

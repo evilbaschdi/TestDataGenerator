@@ -25,8 +25,10 @@ namespace TestDataGenerator
         // ReSharper restore RedundantExtendsListEntry
     {
         private readonly IMetroStyle _style;
+
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly ISettings _coreSettings;
+
         private int _overrideProtection;
         private ProgressDialogController _controller;
         private string _result;
@@ -73,7 +75,7 @@ namespace TestDataGenerator
             var tokenSource = new CancellationTokenSource();
 
             MetroDialogOptions = options;
-            _controller = await this.ShowProgressAsync("Please wait...", "Testdata are getting generated.", true, options);
+            _controller = await this.ShowProgressAsync("Please wait...", "Test data are getting generated.", true, options);
             _controller.SetIndeterminate();
             _controller.Canceled += (_, __) => tokenSource.Cancel();
             _controller.Closed += ControllerClosed;
@@ -86,7 +88,7 @@ namespace TestDataGenerator
             }
             catch (OperationCanceledException)
             {
-                // Cancelling an awaited Task throws an OperationCanceledException.
+                // Canceling an awaited Task throws an OperationCanceledException.
                 // We just want nothing to happen, but the application shouldn't crash.
             }
 

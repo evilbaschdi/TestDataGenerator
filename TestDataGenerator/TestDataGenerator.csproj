@@ -91,6 +91,9 @@
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -139,9 +142,11 @@
       <DependentUpon>IGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\ITestDataContainer.cs" />
-    <Compile Include="Internal\TestDataContainer.cs" />
-    <Compile Include="Internal\TestDataLengh.cs">
-      <DependentUpon>ITestDataLengh.cs</DependentUpon>
+    <Compile Include="Internal\TestDataContainer.cs">
+      <DependentUpon>ITestDataContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataLength.cs">
+      <DependentUpon>ITestDataLength.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\TestDataType.cs">
       <DependentUpon>ITestDataType.cs</DependentUpon>
@@ -149,7 +154,7 @@
     <Compile Include="Internal\IGenerator.cs" />
     <Compile Include="Internal\ITestData.cs" />
     <Compile Include="Internal\ITestDataCharPool.cs" />
-    <Compile Include="Internal\ITestDataLengh.cs" />
+    <Compile Include="Internal\ITestDataLength.cs" />
     <Compile Include="Internal\ITestDataType.cs" />
     <Compile Include="Internal\TestDataCharPool.cs">
       <DependentUpon>ITestDataCharPool.cs</DependentUpon>
@@ -169,14 +174,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\IconsNonShared.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -204,7 +201,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -223,12 +219,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="b_150.png">
