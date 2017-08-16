@@ -2,8 +2,7 @@ using EvilBaschdi.Core.DotNetExtensions;
 
 namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
     public interface ITestDataType : IValue<string>
     {
     }

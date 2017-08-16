@@ -1,35 +1,28 @@
 ﻿namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class TestDataCharPool : ITestDataCharPool
     {
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string CapitalLetters => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string SmallLetters => "abcdefghijklmnopqrstuvwyxz";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string Numbers => "1234567890";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string Signs => @"@€!§$%&/(){}[]\=?+*~#,;.:";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string Letters => $"{CapitalLetters}{SmallLetters}";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string LettersNumbers => $"{Letters}{Numbers}";
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string LettersNumbersSigns => $"{LettersNumbers}{Signs}";
     }
 }

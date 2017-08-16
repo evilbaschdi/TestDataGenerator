@@ -14,34 +14,34 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Practices.Unity;
 using TestDataGenerator.Internal;
+using TestDataGenerator.Properties;
 
 namespace TestDataGenerator
 {
+    /// <inheritdoc cref="MetroWindow" />
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    // ReSharper disable RedundantExtendsListEntry
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
-        // ReSharper restore RedundantExtendsListEntry
+
     {
         private readonly IMetroStyle _style;
-
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private readonly ISettings _coreSettings;
-
-        private int _overrideProtection;
         private ProgressDialogController _controller;
+        private string _dataType;
+        private int _overrideProtection;
         private string _result;
+        private double? _testDataLength;
         private UnityContainer _unityContainer;
 
-        /// <summary>
-        /// </summary>
+
+        /// <inheritdoc />
         public MainWindow()
         {
             InitializeComponent();
-            _coreSettings = new CoreSettings(Properties.Settings.Default);
+            ISettings coreSettings = new CoreSettings(Settings.Default);
             var themeManagerHelper = new ThemeManagerHelper();
-            _style = new MetroStyle(this, Accent, ThemeSwitch, _coreSettings, themeManagerHelper);
+            _style = new MetroStyle(this, Accent, ThemeSwitch, coreSettings, themeManagerHelper);
             _style.Load(true);
             var linkerTime = Assembly.GetExecutingAssembly().GetLinkerTime();
             LinkerTime.Content = linkerTime.ToString(CultureInfo.InvariantCulture);
@@ -56,6 +56,52 @@ namespace TestDataGenerator
             _overrideProtection = 1;
         }
 
+        private async void GenerateOutputOnClickAsync(object sender, RoutedEventArgs e)
+        {
+            await RunTestDataGenerationConfigurationAsync();
+
+            //ITestDataType testDataType = new TestDataType(DataType.Text);
+            //ITestDataLength testDataLength = new TestDataLength(TestDataLength.Value);
+            //IGenerateTestData generateTestData = new GenerateTestData(testDataLength);
+            //ITestDataCharPool testDataCharPool = new TestDataCharPool();
+            //IChainHelperFor<string, string> testDataForLetters = new TestDataForLetters(null, testDataType, generateTestData, testDataCharPool);
+            //IChainHelperFor<string, string> testDataForSmallLetters = new TestDataForSmallLetters(testDataForLetters, testDataType, generateTestData, testDataCharPool);
+            //IChainHelperFor<string, string> testDataForCapitalLetters = new TestDataForCapitalLetters(testDataForSmallLetters, testDataType, generateTestData, testDataCharPool);
+            //ITestData testData = new TestData(testDataForCapitalLetters);
+            //Output.Text = testData.Value;
+        }
+
+        private async void TestDataLengthOnKeyDownAsync(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Return:
+                    await RunTestDataGenerationConfigurationAsync();
+                    break;
+
+                case Key.Tab:
+                    DataType.IsDropDownOpen = true;
+                    break;
+            }
+        }
+
+        private async void DataTypeOnKeyDownAsync(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Return:
+                    await RunTestDataGenerationConfigurationAsync();
+                    break;
+            }
+        }
+
+        private void CopyToClipboardOnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(Output.Text);
+        }
+
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+
         #region Process Generation
 
         private async Task RunTestDataGenerationConfigurationAsync()
@@ -64,8 +110,11 @@ namespace TestDataGenerator
             Cursor = Cursors.Wait;
 
             _unityContainer = new UnityContainer();
+            _testDataLength = TestDataLength.Value;
+            _dataType = DataType.Text;
             _unityContainer.RegisterInstance(TestDataLength.Value);
             _unityContainer.RegisterInstance(DataType.Text);
+
 
             var options = new MetroDialogSettings
                           {
@@ -105,9 +154,30 @@ namespace TestDataGenerator
                 }
             }
 
-            var testDataContainer = new TestDataContainer(_unityContainer);
-            var container = testDataContainer.Value;
-            _result = container.Resolve<ITestData>().Value;
+            //var testDataContainer = new TestDataContainer(_unityContainer);
+            //var container = testDataContainer.Value;
+
+            ITestDataType testDataType = new TestDataType(_dataType);
+            ITestDataLength testDataLength = new TestDataLength(_testDataLength);
+            IGenerateTestData generateTestData = new GenerateTestData(testDataLength);
+            IGenerateTestGuids generateTestGuids = new GenerateTestGuids(testDataLength);
+            ITestDataCharPool testDataCharPool = new TestDataCharPool();
+            IChainHelperFor<string, string> testDataForLetters = new TestDataForLetters(null, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForNumbers = new TestDataForNumbers(testDataForLetters, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForCapitalLetters = new TestDataForCapitalLetters(testDataForNumbers, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForSmallLetters = new TestDataForSmallLetters(testDataForCapitalLetters, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForLettersAndNumbers = new TestDataForLettersAndNumbers(testDataForSmallLetters, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForLettersNumbersSigns = new TestDataForLettersNumbersSigns(testDataForLettersAndNumbers, generateTestData, testDataCharPool);
+            IChainHelperFor<string, string> testDataForGuidsDigits = new TestDataForGuidsDigits(testDataForLettersNumbersSigns, generateTestGuids);
+            IChainHelperFor<string, string> testDataForGuidsHyphens = new TestDataForGuidsHyphens(testDataForGuidsDigits, generateTestGuids);
+            IChainHelperFor<string, string> testDataForGuidsBraces = new TestDataForGuidsBraces(testDataForGuidsHyphens, generateTestGuids);
+            IChainHelperFor<string, string> testDataForGuidsParentheses = new TestDataForGuidsParentheses(testDataForGuidsBraces, generateTestGuids);
+
+            ITestData testData = new TestData(testDataForGuidsParentheses, testDataType);
+            _result = testData.Value;
+
+
+            // _result = container.Resolve<ITestData>().Value;
         }
 
         private void ControllerClosed(object sender, EventArgs e)
@@ -120,40 +190,6 @@ namespace TestDataGenerator
         }
 
         #endregion Process Generation
-
-        private async void GenerateOutputOnClickAsync(object sender, RoutedEventArgs e)
-        {
-            await RunTestDataGenerationConfigurationAsync();
-        }
-
-        private async void TestDataLengthOnKeyDownAsync(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Return:
-                    await RunTestDataGenerationConfigurationAsync();
-                    break;
-
-                case Key.Tab:
-                    DataType.IsDropDownOpen = true;
-                    break;
-            }
-        }
-
-        private async void DataTypeOnKeyDownAsync(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Return:
-                    await RunTestDataGenerationConfigurationAsync();
-                    break;
-            }
-        }
-
-        private void CopyToClipboardOnClick(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(Output.Text);
-        }
 
         #region Flyout
 
@@ -178,14 +214,7 @@ namespace TestDataGenerator
                 nonactiveFlyout.IsOpen = false;
             }
 
-            if (activeFlyout.IsOpen && stayOpen)
-            {
-                activeFlyout.IsOpen = true;
-            }
-            else
-            {
-                activeFlyout.IsOpen = !activeFlyout.IsOpen;
-            }
+            activeFlyout.IsOpen = activeFlyout.IsOpen && stayOpen || !activeFlyout.IsOpen;
         }
 
         #endregion Flyout
@@ -207,15 +236,8 @@ namespace TestDataGenerator
             {
                 return;
             }
-            var routedEventArgs = e as RoutedEventArgs;
-            if (routedEventArgs != null)
-            {
-                _style.SetTheme(sender, routedEventArgs);
-            }
-            else
-            {
-                _style.SetTheme(sender);
-            }
+
+            _style.SetTheme(sender);
         }
 
         private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -224,6 +246,7 @@ namespace TestDataGenerator
             {
                 return;
             }
+
             _style.SetAccent(sender, e);
         }
 

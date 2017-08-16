@@ -2,8 +2,8 @@
 
 namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class TestDataType : ITestDataType
     {
         /// <summary>
@@ -11,15 +11,10 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public TestDataType(string testDataTypeString)
         {
-            if (testDataTypeString == null)
-            {
-                throw new ArgumentNullException(nameof(testDataTypeString));
-            }
-            Value = testDataTypeString;
+            Value = testDataTypeString ?? throw new ArgumentNullException(nameof(testDataTypeString));
         }
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public string Value { get; }
     }
 }

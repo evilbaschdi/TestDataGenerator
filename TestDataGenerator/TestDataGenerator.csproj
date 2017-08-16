@@ -134,16 +134,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Internal\ChainHelperFor.cs">
+      <DependentUpon>IChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\IChainHelperFor.cs" />
     <Compile Include="Internal\GenerateTestData.cs">
-      <DependentUpon>IGenerator.cs</DependentUpon>
+      <DependentUpon>IGenerateTestData.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\GenerateTestGuids.cs">
-      <DependentUpon>IGenerator.cs</DependentUpon>
+      <DependentUpon>IGenerateTestGuids.cs</DependentUpon>
     </Compile>
+    <Compile Include="Internal\IGenerateTestGuids.cs" />
+    <Compile Include="Internal\ITestData.cs" />
     <Compile Include="Internal\ITestDataContainer.cs" />
+    <Compile Include="Internal\TestData.cs">
+      <DependentUpon>ITestData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Internal\TestDataContainer.cs">
       <DependentUpon>ITestDataContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForCapitalLetters.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForGuidsBraces.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForGuidsDigits.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForGuidsHyphens.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForGuidsParentheses.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForLetters.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForLettersAndNumbers.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForLettersNumbersSigns.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForNumbers.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\TestDataForSmallLetters.cs">
+      <DependentUpon>ChainHelperFor.cs</DependentUpon>
     </Compile>
     <Compile Include="Internal\TestDataLength.cs">
       <DependentUpon>ITestDataLength.cs</DependentUpon>
@@ -151,16 +189,12 @@
     <Compile Include="Internal\TestDataType.cs">
       <DependentUpon>ITestDataType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Internal\IGenerator.cs" />
-    <Compile Include="Internal\ITestData.cs" />
+    <Compile Include="Internal\IGenerateTestData.cs" />
     <Compile Include="Internal\ITestDataCharPool.cs" />
     <Compile Include="Internal\ITestDataLength.cs" />
     <Compile Include="Internal\ITestDataType.cs" />
     <Compile Include="Internal\TestDataCharPool.cs">
       <DependentUpon>ITestDataCharPool.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Internal\TestData.cs">
-      <DependentUpon>ITestData.cs</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -231,6 +265,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

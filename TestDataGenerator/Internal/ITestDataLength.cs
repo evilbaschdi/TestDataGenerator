@@ -2,8 +2,7 @@
 
 namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
     public interface ITestDataLength : IValue<int>
     {
     }

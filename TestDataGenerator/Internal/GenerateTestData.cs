@@ -2,44 +2,39 @@
 
 namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
-    public class GenerateTestData : IGenerator
+    /// <inheritdoc />
+    public class GenerateTestData : IGenerateTestData
     {
-        private readonly int _length;
-        private readonly string _charPool;
         private static Random _random;
+        private readonly ITestDataLength _testDataLength;
         private char[] _buffer;
 
         /// <summary>
-        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        ///     Constructor of the class
         /// </summary>
-        public GenerateTestData(int length, string charPool)
+        /// <param name="testDataLength"></param>
+        public GenerateTestData(ITestDataLength testDataLength)
+        {
+            _testDataLength = testDataLength ?? throw new ArgumentNullException(nameof(testDataLength));
+        }
+
+        /// <inheritdoc />
+        public string ValueFor(string charPool)
         {
             if (charPool == null)
             {
                 throw new ArgumentNullException(nameof(charPool));
             }
-            _length = length;
-            _charPool = charPool;
-        }
+            var length = _testDataLength.Value;
+            _random = new Random();
 
-        /// <summary>
-        /// </summary>
-        public string Value
-        {
-            get
+            _buffer = new char[length];
+
+            for (var i = 0; i < length; i++)
             {
-                _random = new Random();
-
-                _buffer = new char[_length];
-
-                for (var i = 0; i < _length; i++)
-                {
-                    _buffer[i] = _charPool[_random.Next(_charPool.Length)];
-                }
-                return new string(_buffer);
+                _buffer[i] = charPool[_random.Next(charPool.Length)];
             }
+            return new string(_buffer);
         }
     }
 }

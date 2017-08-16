@@ -3,8 +3,8 @@ using System.Windows;
 
 namespace TestDataGenerator.Internal
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class TestDataLength : ITestDataLength
     {
         private readonly double? _lengthAsDouble;
@@ -14,20 +14,15 @@ namespace TestDataGenerator.Internal
         /// </summary>
         public TestDataLength(double? lengthAsDouble)
         {
-            if (lengthAsDouble == null)
-            {
-                throw new ArgumentNullException(nameof(lengthAsDouble));
-            }
-            _lengthAsDouble = lengthAsDouble;
+            _lengthAsDouble = lengthAsDouble ?? throw new ArgumentNullException(nameof(lengthAsDouble));
         }
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         public int Value
         {
             get
             {
-                int result = 1;
+                var result = 1;
                 try
                 {
                     result = (int) (_lengthAsDouble ?? 1);
