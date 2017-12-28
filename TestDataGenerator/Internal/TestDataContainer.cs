@@ -1,5 +1,6 @@
 using System;
-using Microsoft.Practices.Unity;
+using Unity;
+using Unity.Injection;
 
 namespace TestDataGenerator.Internal
 {

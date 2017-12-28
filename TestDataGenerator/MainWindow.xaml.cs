@@ -12,9 +12,9 @@ using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Wpf;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Practices.Unity;
 using TestDataGenerator.Internal;
 using TestDataGenerator.Properties;
+using Unity;
 
 namespace TestDataGenerator
 {
