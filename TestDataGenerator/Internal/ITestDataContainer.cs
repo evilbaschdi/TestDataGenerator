@@ -1,5 +1,4 @@
-﻿using EvilBaschdi.Core.DotNetExtensions;
-using Microsoft.Practices.Unity;
+﻿using EvilBaschdi.Core;
 using Unity;
 
 namespace TestDataGenerator.Internal

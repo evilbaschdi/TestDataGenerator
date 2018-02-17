@@ -1,10 +1,12 @@
-﻿namespace TestDataGenerator.Internal
+﻿using EvilBaschdi.Core;
+
+namespace TestDataGenerator.Internal
 {
     /// <summary>
     /// </summary>
     /// <typeparam name="TIn"></typeparam>
     /// <typeparam name="TOut"></typeparam>
-    public interface IChainHelperFor<in TIn, out TOut>
+    public interface IChainHelperFor<in TIn, out TOut> : IValueFor<TIn, TOut>
     {
         /// <summary>
         /// </summary>
@@ -13,11 +15,5 @@
         /// <summary>
         /// </summary>
         bool AmIResponsible { get; }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        TOut ValueFor(TIn input);
     }
 }

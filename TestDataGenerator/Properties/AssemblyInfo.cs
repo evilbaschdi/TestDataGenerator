@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TestDataGenerator")]
-[assembly: AssemblyCopyright("Copyright © evilbaschdi 2014 - 2016")]
+[assembly: AssemblyCopyright("Copyright © evil.baschdi 2014 - 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

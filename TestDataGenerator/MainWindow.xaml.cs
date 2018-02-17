@@ -8,8 +8,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shell;
-using EvilBaschdi.Core.Application;
-using EvilBaschdi.Core.Wpf;
+using EvilBaschdi.Core.Extensions;
+using EvilBaschdi.CoreExtended.AppHelpers;
+using EvilBaschdi.CoreExtended.Metro;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using TestDataGenerator.Internal;
@@ -26,23 +27,25 @@ namespace TestDataGenerator
     public partial class MainWindow : MetroWindow
 
     {
-        private readonly IMetroStyle _style;
+        
         private ProgressDialogController _controller;
         private string _dataType;
         private int _overrideProtection;
         private string _result;
         private double? _testDataLength;
         private UnityContainer _unityContainer;
+        private readonly IApplicationStyle _applicationStyle;
 
 
         /// <inheritdoc />
         public MainWindow()
         {
             InitializeComponent();
-            ISettings coreSettings = new CoreSettings(Settings.Default);
-            var themeManagerHelper = new ThemeManagerHelper();
-            _style = new MetroStyle(this, Accent, ThemeSwitch, coreSettings, themeManagerHelper);
-            _style.Load(true);
+            IAppSettingsBase appSettingsBase = new AppSettingsBase(Settings.Default);
+            IApplicationStyleSettings applicationStyleSettings = new ApplicationStyleSettings(appSettingsBase);
+            IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
+            _applicationStyle = new ApplicationStyle(this, Accent, ThemeSwitch, applicationStyleSettings, themeManagerHelper);
+            _applicationStyle.Load(true);
             var linkerTime = Assembly.GetExecutingAssembly().GetLinkerTime();
             LinkerTime.Content = linkerTime.ToString(CultureInfo.InvariantCulture);
             Load();
@@ -227,7 +230,8 @@ namespace TestDataGenerator
             {
                 return;
             }
-            _style.SaveStyle();
+
+            _applicationStyle.SaveStyle();
         }
 
         private void Theme(object sender, EventArgs e)
@@ -237,7 +241,7 @@ namespace TestDataGenerator
                 return;
             }
 
-            _style.SetTheme(sender);
+            _applicationStyle.SetTheme(sender);
         }
 
         private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -247,7 +251,7 @@ namespace TestDataGenerator
                 return;
             }
 
-            _style.SetAccent(sender, e);
+            _applicationStyle.SetAccent(sender, e);
         }
 
         #endregion MetroStyle

@@ -16,6 +16,7 @@
             {
                 //   throw new ArgumentNullException(nameof(chainHelperFor));
             }
+
             NextChain = chainHelperFor;
         }
 
