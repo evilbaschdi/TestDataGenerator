@@ -4,16 +4,16 @@
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       Title="Test Data Generator" Width="500" Height="350"
-                      GlowBrush="{DynamicResource AccentColorBrush}"
-                      Icon="b.ico" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
+                      GlowBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                      Icon="Resources/b.ico" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
     <!--  RightWindowCommands  -->
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <!--  Settings  -->
-            <Button Click="ToggleSettingsFlyoutClick">
+            <!-- About -->
+            <Button Click="AboutWindowClick">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconMaterial Kind="Settings" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="settings" />
+                    <iconPacks:PackIconMaterial Kind="Information" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="about" />
                 </StackPanel>
             </Button>
         </controls:WindowCommands>
@@ -52,45 +52,4 @@
         <Label Margin="10,41,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Data Type:" />
         <Label Margin="10,106,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Output:" />
     </Grid>
-    <!--  Flyouts  -->
-    <controls:MetroWindow.Flyouts>
-        <controls:FlyoutsControl>
-            <!--  Settings Flyout  -->
-            <controls:Flyout Name="SettingsFlyout" Width="250" AnimateOnPositionChange="True" AnimateOpacity="True" Header="settings" Position="Right" Theme="Accent">
-                <StackPanel>
-                    <!-- Theme -->
-                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left"
-                               VerticalAlignment="Top" Content="Theme" />
-                        <controls:ToggleSwitch Name="ThemeSwitch" Margin="10,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" IsCheckedChanged="Theme"
-                                               OnSwitchBrush="{DynamicResource AccentColorBrush}" OnLabel="Dark"
-                                               OffSwitchBrush="{DynamicResource AccentColorBrush}" OffLabel="Light" />
-                    </StackPanel>
-                    <!-- Accent -->
-                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Accent:" />
-                        <ComboBox Name="Accent" Width="165" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="AccentOnSelectionChanged" />
-                    </StackPanel>
-                    <!-- Save Style -->
-                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Button Name="SaveStyle" Width="165" Margin="60,5,0,0" Click="SaveStyleClick">
-                            <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconMaterial Kind="ContentSaveSettings" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="save style" />
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                    <!-- Horizontal Line -->
-                    <StackPanel Margin="10,10,10,0" Orientation="Vertical">
-                        <Separator Background="{DynamicResource AccentColorBrush}" />
-                    </StackPanel>
-                    <!-- Build / Linker Time -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Width="50" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Build" />
-                        <Label Width="310" Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="LinkerTime" />
-                    </StackPanel>
-                </StackPanel>
-            </controls:Flyout>
-        </controls:FlyoutsControl>
-    </controls:MetroWindow.Flyouts>
 </controls:MetroWindow>

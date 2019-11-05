@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shell;
-using EvilBaschdi.Core.Extensions;
-using EvilBaschdi.CoreExtended.AppHelpers;
 using EvilBaschdi.CoreExtended.Metro;
+using EvilBaschdi.CoreExtended.Mvvm;
+using EvilBaschdi.CoreExtended.Mvvm.View;
+using EvilBaschdi.CoreExtended.Mvvm.ViewModel;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using TestDataGenerator.Internal;
-using TestDataGenerator.Properties;
 using Unity;
 
 namespace TestDataGenerator
@@ -27,27 +23,24 @@ namespace TestDataGenerator
     public partial class MainWindow : MetroWindow
 
     {
-        
+        private readonly IThemeManagerHelper _themeManagerHelper;
+
         private ProgressDialogController _controller;
         private string _dataType;
-        private int _overrideProtection;
         private string _result;
         private double? _testDataLength;
         private UnityContainer _unityContainer;
-        private readonly IApplicationStyle _applicationStyle;
 
 
         /// <inheritdoc />
         public MainWindow()
         {
             InitializeComponent();
-            IAppSettingsBase appSettingsBase = new AppSettingsBase(Settings.Default);
-            IApplicationStyleSettings applicationStyleSettings = new ApplicationStyleSettings(appSettingsBase);
-            IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
-            _applicationStyle = new ApplicationStyle(this, Accent, ThemeSwitch, applicationStyleSettings, themeManagerHelper);
-            _applicationStyle.Load(true);
-            var linkerTime = Assembly.GetExecutingAssembly().GetLinkerTime();
-            LinkerTime.Content = linkerTime.ToString(CultureInfo.InvariantCulture);
+            _themeManagerHelper = new ThemeManagerHelper();
+
+            var applicationStyle = new ApplicationStyle(_themeManagerHelper);
+            applicationStyle.Load(true);
+
             Load();
         }
 
@@ -56,7 +49,6 @@ namespace TestDataGenerator
             TestDataLength.Focus();
             DataType.Text = "Letters";
             TestDataLength.Value = 1;
-            _overrideProtection = 1;
         }
 
         private async void GenerateOutputOnClickAsync(object sender, RoutedEventArgs e)
@@ -192,68 +184,19 @@ namespace TestDataGenerator
             Output.Text = _result;
         }
 
+        private void AboutWindowClick(object sender, RoutedEventArgs e)
+        {
+            var assembly = typeof(MainWindow).Assembly;
+            IAboutWindowContent aboutWindowContent = new AboutWindowContent(assembly, $@"{AppDomain.CurrentDomain.BaseDirectory}\Resources\b.png");
+
+            var aboutWindow = new AboutWindow
+                              {
+                                  DataContext = new AboutViewModel(aboutWindowContent, _themeManagerHelper)
+                              };
+
+            aboutWindow.ShowDialog();
+        }
+
         #endregion Process Generation
-
-        #region Flyout
-
-        private void ToggleSettingsFlyoutClick(object sender, RoutedEventArgs e)
-        {
-            ToggleFlyout(0);
-        }
-
-        private void ToggleFlyout(int index, bool stayOpen = false)
-        {
-            var activeFlyout = (Flyout) Flyouts.Items[index];
-            if (activeFlyout == null)
-            {
-                return;
-            }
-
-            foreach (
-                var nonactiveFlyout in
-                Flyouts.Items.Cast<Flyout>()
-                       .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
-            {
-                nonactiveFlyout.IsOpen = false;
-            }
-
-            activeFlyout.IsOpen = activeFlyout.IsOpen && stayOpen || !activeFlyout.IsOpen;
-        }
-
-        #endregion Flyout
-
-        #region MetroStyle
-
-        private void SaveStyleClick(object sender, RoutedEventArgs e)
-        {
-            if (_overrideProtection == 0)
-            {
-                return;
-            }
-
-            _applicationStyle.SaveStyle();
-        }
-
-        private void Theme(object sender, EventArgs e)
-        {
-            if (_overrideProtection == 0)
-            {
-                return;
-            }
-
-            _applicationStyle.SetTheme(sender);
-        }
-
-        private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_overrideProtection == 0)
-            {
-                return;
-            }
-
-            _applicationStyle.SetAccent(sender, e);
-        }
-
-        #endregion MetroStyle
     }
 }
