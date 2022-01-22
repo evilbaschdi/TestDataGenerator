@@ -1,5 +1,6 @@
 ﻿using EvilBaschdi.Core;
 
+// ReSharper disable UnusedMemberInSuper.Global
 namespace TestDataGenerator.Internal
 {
     /// <summary>
@@ -10,10 +11,10 @@ namespace TestDataGenerator.Internal
     {
         /// <summary>
         /// </summary>
-        IChainHelperFor<TIn, TOut> NextChain { get; }
+        bool AmIResponsible { get; }
 
         /// <summary>
         /// </summary>
-        bool AmIResponsible { get; }
+        IChainHelperFor<TIn, TOut> NextChain { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace TestDataGenerator.Internal
 {
@@ -9,8 +10,14 @@ namespace TestDataGenerator.Internal
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        public TestDataType(string testDataTypeString)
+        // ReSharper disable once InconsistentNaming
+        public TestDataType([NotNull] string testDataTypeString)
         {
+            if (testDataTypeString == null)
+            {
+                throw new ArgumentNullException(nameof(testDataTypeString));
+            }
+
             Value = testDataTypeString ?? throw new ArgumentNullException(nameof(testDataTypeString));
         }
 

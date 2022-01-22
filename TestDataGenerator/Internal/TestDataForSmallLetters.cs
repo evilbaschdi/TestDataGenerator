@@ -7,9 +7,10 @@ namespace TestDataGenerator.Internal
     {
         private readonly IGenerateTestData _generateTestData;
         private readonly ITestDataCharPool _testDataCharPool;
+
         /// <inheritdoc />
         /// <summary>
-        /// Constructor of the class
+        ///     Constructor of the class
         /// </summary>
         /// <param name="chainHelperFor"></param>
         /// <param name="generateTestData"></param>

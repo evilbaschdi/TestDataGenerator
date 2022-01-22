@@ -4,14 +4,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Shell;
-using EvilBaschdi.CoreExtended.Metro;
-using EvilBaschdi.CoreExtended.Mvvm;
-using EvilBaschdi.CoreExtended.Mvvm.View;
-using EvilBaschdi.CoreExtended.Mvvm.ViewModel;
+using EvilBaschdi.CoreExtended;
+using EvilBaschdi.CoreExtended.Controls.About;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 using TestDataGenerator.Internal;
-using Unity;
 
 namespace TestDataGenerator
 {
@@ -20,26 +18,23 @@ namespace TestDataGenerator
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
     // ReSharper disable once RedundantExtendsListEntry
+    // ReSharper disable once InconsistentNaming
     public partial class MainWindow : MetroWindow
 
     {
-        private readonly IThemeManagerHelper _themeManagerHelper;
-
         private ProgressDialogController _controller;
         private string _dataType;
         private string _result;
         private double? _testDataLength;
-        private UnityContainer _unityContainer;
-
 
         /// <inheritdoc />
         public MainWindow()
         {
             InitializeComponent();
-            _themeManagerHelper = new ThemeManagerHelper();
 
-            var applicationStyle = new ApplicationStyle(_themeManagerHelper);
-            applicationStyle.Load(true);
+            IRoundCorners roundCorners = new RoundCorners();
+            IApplicationStyle style = new ApplicationStyle(roundCorners, true, true);
+            style.Run();
 
             Load();
         }
@@ -54,16 +49,6 @@ namespace TestDataGenerator
         private async void GenerateOutputOnClickAsync(object sender, RoutedEventArgs e)
         {
             await RunTestDataGenerationConfigurationAsync();
-
-            //ITestDataType testDataType = new TestDataType(DataType.Text);
-            //ITestDataLength testDataLength = new TestDataLength(TestDataLength.Value);
-            //IGenerateTestData generateTestData = new GenerateTestData(testDataLength);
-            //ITestDataCharPool testDataCharPool = new TestDataCharPool();
-            //IChainHelperFor<string, string> testDataForLetters = new TestDataForLetters(null, testDataType, generateTestData, testDataCharPool);
-            //IChainHelperFor<string, string> testDataForSmallLetters = new TestDataForSmallLetters(testDataForLetters, testDataType, generateTestData, testDataCharPool);
-            //IChainHelperFor<string, string> testDataForCapitalLetters = new TestDataForCapitalLetters(testDataForSmallLetters, testDataType, generateTestData, testDataCharPool);
-            //ITestData testData = new TestData(testDataForCapitalLetters);
-            //Output.Text = testData.Value;
         }
 
         private async void TestDataLengthOnKeyDownAsync(object sender, KeyEventArgs e)
@@ -104,12 +89,8 @@ namespace TestDataGenerator
             TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
             Cursor = Cursors.Wait;
 
-            _unityContainer = new UnityContainer();
             _testDataLength = TestDataLength.Value;
             _dataType = DataType.Text;
-            _unityContainer.RegisterInstance(TestDataLength.Value);
-            _unityContainer.RegisterInstance(DataType.Text);
-
 
             var options = new MetroDialogSettings
                           {
@@ -119,9 +100,10 @@ namespace TestDataGenerator
             var tokenSource = new CancellationTokenSource();
 
             MetroDialogOptions = options;
-            _controller = await this.ShowProgressAsync("Please wait...", "Test data are getting generated.", true, options);
+            _controller =
+                await this.ShowProgressAsync("Please wait...", "Test data are getting generated.", true, options);
             _controller.SetIndeterminate();
-            _controller.Canceled += (_, __) => tokenSource.Cancel();
+            _controller.Canceled += (_, _) => tokenSource.Cancel();
             _controller.Closed += ControllerClosed;
 
             var token = tokenSource.Token;
@@ -149,30 +131,18 @@ namespace TestDataGenerator
                 }
             }
 
-            //var testDataContainer = new TestDataContainer(_unityContainer);
-            //var container = testDataContainer.Value;
+            IServiceCollection serviceCollection = new ServiceCollection();
+            IConfigureTestDataGeneration configureTestDataGeneration = new ConfigureTestDataGeneration();
+            configureTestDataGeneration.RunFor((serviceCollection, _dataType, _testDataLength));
 
-            ITestDataType testDataType = new TestDataType(_dataType);
-            ITestDataLength testDataLength = new TestDataLength(_testDataLength);
-            IGenerateTestData generateTestData = new GenerateTestData(testDataLength);
-            IGenerateTestGuids generateTestGuids = new GenerateTestGuids(testDataLength);
-            ITestDataCharPool testDataCharPool = new TestDataCharPool();
-            IChainHelperFor<string, string> testDataForLetters = new TestDataForLetters(null, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForNumbers = new TestDataForNumbers(testDataForLetters, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForCapitalLetters = new TestDataForCapitalLetters(testDataForNumbers, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForSmallLetters = new TestDataForSmallLetters(testDataForCapitalLetters, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForLettersAndNumbers = new TestDataForLettersAndNumbers(testDataForSmallLetters, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForLettersNumbersSigns = new TestDataForLettersNumbersSigns(testDataForLettersAndNumbers, generateTestData, testDataCharPool);
-            IChainHelperFor<string, string> testDataForGuidsDigits = new TestDataForGuidsDigits(testDataForLettersNumbersSigns, generateTestGuids);
-            IChainHelperFor<string, string> testDataForGuidsHyphens = new TestDataForGuidsHyphens(testDataForGuidsDigits, generateTestGuids);
-            IChainHelperFor<string, string> testDataForGuidsBraces = new TestDataForGuidsBraces(testDataForGuidsHyphens, generateTestGuids);
-            IChainHelperFor<string, string> testDataForGuidsParentheses = new TestDataForGuidsParentheses(testDataForGuidsBraces, generateTestGuids);
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            ITestData testData = new TestData(testDataForGuidsParentheses, testDataType);
-            _result = testData.Value;
+            ITestData testData = serviceProvider.GetRequiredService<ITestData>();
 
-
-            // _result = container.Resolve<ITestData>().Value;
+            if (testData != null)
+            {
+                _result = testData.Value;
+            }
         }
 
         private void ControllerClosed(object sender, EventArgs e)
@@ -186,13 +156,10 @@ namespace TestDataGenerator
 
         private void AboutWindowClick(object sender, RoutedEventArgs e)
         {
-            var assembly = typeof(MainWindow).Assembly;
-            IAboutWindowContent aboutWindowContent = new AboutWindowContent(assembly, $@"{AppDomain.CurrentDomain.BaseDirectory}\Resources\b.png");
-
-            var aboutWindow = new AboutWindow
-                              {
-                                  DataContext = new AboutViewModel(aboutWindowContent, _themeManagerHelper)
-                              };
+            ICurrentAssembly currentAssembly = new CurrentAssembly();
+            IAboutContent aboutContent = new AboutContent(currentAssembly);
+            IAboutModel aboutModel = new AboutViewModel(aboutContent);
+            var aboutWindow = new AboutWindow(aboutModel);
 
             aboutWindow.ShowDialog();
         }

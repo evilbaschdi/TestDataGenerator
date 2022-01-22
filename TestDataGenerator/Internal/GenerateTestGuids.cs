@@ -6,7 +6,7 @@ namespace TestDataGenerator.Internal
     /// <inheritdoc />
     public class GenerateTestGuids : IGenerateTestGuids
     {
-        private readonly StringBuilder _guids = new StringBuilder();
+        private readonly StringBuilder _guids = new();
         private readonly ITestDataLength _testDataLength;
 
         /// <summary>
@@ -25,6 +25,7 @@ namespace TestDataGenerator.Internal
             {
                 throw new ArgumentNullException(nameof(type));
             }
+
             for (var i = 0; i < _testDataLength.Value; i++)
             {
                 _guids.Append($"{Guid.NewGuid().ToString(type)}");

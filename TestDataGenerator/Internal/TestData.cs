@@ -13,6 +13,7 @@ namespace TestDataGenerator.Internal
         /// </summary>
         /// <param name="chainHelperFor"></param>
         /// <param name="testDataType"></param>
+        // ReSharper disable once InconsistentNaming
         public TestData(IChainHelperFor<string, string> chainHelperFor, ITestDataType testDataType)
         {
             _testDataType = testDataType ?? throw new ArgumentNullException(nameof(testDataType));

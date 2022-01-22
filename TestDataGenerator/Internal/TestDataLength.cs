@@ -25,12 +25,13 @@ namespace TestDataGenerator.Internal
                 var result = 1;
                 try
                 {
-                    result = (int) (_lengthAsDouble ?? 1);
+                    result = (int)(_lengthAsDouble ?? 1);
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
                 }
+
                 return result;
             }
         }

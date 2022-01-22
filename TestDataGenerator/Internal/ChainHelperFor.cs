@@ -33,11 +33,11 @@
             return AmIResponsible ? InnerValueFor(input) : NextChain.ValueFor(input);
         }
 
-
         /// <summary>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        // ReSharper disable once UnusedParameter.Global
         protected abstract TOut InnerValueFor(TIn input);
     }
 }

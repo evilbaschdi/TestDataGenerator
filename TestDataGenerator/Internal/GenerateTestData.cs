@@ -25,8 +25,9 @@ namespace TestDataGenerator.Internal
             {
                 throw new ArgumentNullException(nameof(charPool));
             }
+
             var length = _testDataLength.Value;
-            _random = new Random();
+            _random = new();
 
             _buffer = new char[length];
 
@@ -34,7 +35,8 @@ namespace TestDataGenerator.Internal
             {
                 _buffer[i] = charPool[_random.Next(charPool.Length)];
             }
-            return new string(_buffer);
+
+            return new(_buffer);
         }
     }
 }
