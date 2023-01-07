@@ -1,9 +1,8 @@
 ﻿using EvilBaschdi.Core;
 
-namespace TestDataGenerator.Internal
+namespace TestDataGenerator.Internal;
+
+/// <inheritdoc />
+public interface ITestData : IString
 {
-    /// <inheritdoc />
-    public interface ITestData : IValue<string>
-    {
-    }
 }

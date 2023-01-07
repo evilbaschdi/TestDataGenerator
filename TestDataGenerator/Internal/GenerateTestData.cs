@@ -1,42 +1,39 @@
-﻿using System;
+﻿namespace TestDataGenerator.Internal;
 
-namespace TestDataGenerator.Internal
+/// <inheritdoc />
+public class GenerateTestData : IGenerateTestData
 {
-    /// <inheritdoc />
-    public class GenerateTestData : IGenerateTestData
+    private static Random _random;
+    private readonly ITestDataLength _testDataLength;
+    private char[] _buffer;
+
+    /// <summary>
+    ///     Constructor of the class
+    /// </summary>
+    /// <param name="testDataLength"></param>
+    public GenerateTestData(ITestDataLength testDataLength)
     {
-        private static Random _random;
-        private readonly ITestDataLength _testDataLength;
-        private char[] _buffer;
+        _testDataLength = testDataLength ?? throw new ArgumentNullException(nameof(testDataLength));
+    }
 
-        /// <summary>
-        ///     Constructor of the class
-        /// </summary>
-        /// <param name="testDataLength"></param>
-        public GenerateTestData(ITestDataLength testDataLength)
+    /// <inheritdoc />
+    public string ValueFor(string charPool)
+    {
+        if (charPool == null)
         {
-            _testDataLength = testDataLength ?? throw new ArgumentNullException(nameof(testDataLength));
+            throw new ArgumentNullException(nameof(charPool));
         }
 
-        /// <inheritdoc />
-        public string ValueFor(string charPool)
+        var length = _testDataLength.Value;
+        _random = new();
+
+        _buffer = new char[length];
+
+        for (var i = 0; i < length; i++)
         {
-            if (charPool == null)
-            {
-                throw new ArgumentNullException(nameof(charPool));
-            }
-
-            var length = _testDataLength.Value;
-            _random = new();
-
-            _buffer = new char[length];
-
-            for (var i = 0; i < length; i++)
-            {
-                _buffer[i] = charPool[_random.Next(charPool.Length)];
-            }
-
-            return new(_buffer);
+            _buffer[i] = charPool[_random.Next(charPool.Length)];
         }
+
+        return new(_buffer);
     }
 }

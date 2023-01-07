@@ -1,9 +1,8 @@
 ﻿using EvilBaschdi.Core;
 
-namespace TestDataGenerator.Internal
+namespace TestDataGenerator.Internal;
+
+/// <inheritdoc />
+public interface IGenerateTestGuids : IValueFor<string, string>
 {
-    /// <inheritdoc />
-    public interface IGenerateTestGuids : IValueFor<string, string>
-    {
-    }
 }

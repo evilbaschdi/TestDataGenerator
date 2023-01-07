@@ -1,5 +1,4 @@
-﻿using System;
-using EvilBaschdi.DependencyInjection;
+﻿using EvilBaschdi.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using TestDataGenerator.Internal;
 

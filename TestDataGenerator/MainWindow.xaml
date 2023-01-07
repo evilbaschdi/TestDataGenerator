@@ -4,7 +4,7 @@
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       Title="Test Data Generator" Width="500" Height="350"
-                      GlowBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+
                       Icon="Resources/b.ico" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
     <!--  RightWindowCommands  -->
     <controls:MetroWindow.RightWindowCommands>

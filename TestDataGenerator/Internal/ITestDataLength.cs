@@ -1,9 +1,8 @@
 ﻿using EvilBaschdi.Core;
 
-namespace TestDataGenerator.Internal
+namespace TestDataGenerator.Internal;
+
+/// <inheritdoc />
+public interface ITestDataLength : IInt
 {
-    /// <inheritdoc />
-    public interface ITestDataLength : IValue<int>
-    {
-    }
 }

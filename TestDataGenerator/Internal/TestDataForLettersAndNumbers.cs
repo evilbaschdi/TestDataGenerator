@@ -1,35 +1,32 @@
-using System;
+namespace TestDataGenerator.Internal;
 
-namespace TestDataGenerator.Internal
+/// <inheritdoc />
+public class TestDataForLettersAndNumbers : ChainHelperFor<string, string>
 {
+    private readonly IGenerateTestData _generateTestData;
+    private readonly ITestDataCharPool _testDataCharPool;
+
     /// <inheritdoc />
-    public class TestDataForLettersAndNumbers : ChainHelperFor<string, string>
+    /// <summary>
+    ///     Constructor of the class
+    /// </summary>
+    /// <param name="chainHelperFor"></param>
+    /// <param name="generateTestData"></param>
+    /// <param name="testDataCharPool"></param>
+    public TestDataForLettersAndNumbers(IChainHelperFor<string, string> chainHelperFor, IGenerateTestData generateTestData,
+                                        ITestDataCharPool testDataCharPool)
+        : base(chainHelperFor)
     {
-        private readonly IGenerateTestData _generateTestData;
-        private readonly ITestDataCharPool _testDataCharPool;
+        _testDataCharPool = testDataCharPool ?? throw new ArgumentNullException(nameof(testDataCharPool));
+        _generateTestData = generateTestData ?? throw new ArgumentNullException(nameof(generateTestData));
+    }
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Constructor of the class
-        /// </summary>
-        /// <param name="chainHelperFor"></param>
-        /// <param name="generateTestData"></param>
-        /// <param name="testDataCharPool"></param>
-        public TestDataForLettersAndNumbers(IChainHelperFor<string, string> chainHelperFor, IGenerateTestData generateTestData,
-                                            ITestDataCharPool testDataCharPool)
-            : base(chainHelperFor)
-        {
-            _testDataCharPool = testDataCharPool ?? throw new ArgumentNullException(nameof(testDataCharPool));
-            _generateTestData = generateTestData ?? throw new ArgumentNullException(nameof(generateTestData));
-        }
+    /// <inheritdoc />
+    public override bool AmIResponsible => Input.Equals("Letters and Numbers");
 
-        /// <inheritdoc />
-        public override bool AmIResponsible => Input.Equals("Letters and Numbers");
-
-        /// <inheritdoc />
-        protected override string InnerValueFor(string input)
-        {
-            return _generateTestData.ValueFor(_testDataCharPool.LettersNumbers);
-        }
+    /// <inheritdoc />
+    protected override string InnerValueFor(string input)
+    {
+        return _generateTestData.ValueFor(_testDataCharPool.LettersNumbers);
     }
 }

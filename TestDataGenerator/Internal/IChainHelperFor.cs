@@ -1,20 +1,19 @@
 ﻿using EvilBaschdi.Core;
 
 // ReSharper disable UnusedMemberInSuper.Global
-namespace TestDataGenerator.Internal
+namespace TestDataGenerator.Internal;
+
+/// <summary>
+/// </summary>
+/// <typeparam name="TIn"></typeparam>
+/// <typeparam name="TOut"></typeparam>
+public interface IChainHelperFor<in TIn, out TOut> : IValueFor<TIn, TOut>
 {
     /// <summary>
     /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
-    public interface IChainHelperFor<in TIn, out TOut> : IValueFor<TIn, TOut>
-    {
-        /// <summary>
-        /// </summary>
-        bool AmIResponsible { get; }
+    bool AmIResponsible { get; }
 
-        /// <summary>
-        /// </summary>
-        IChainHelperFor<TIn, TOut> NextChain { get; }
-    }
+    /// <summary>
+    /// </summary>
+    IChainHelperFor<TIn, TOut> NextChain { get; }
 }
