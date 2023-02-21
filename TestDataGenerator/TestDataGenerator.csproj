@@ -1,9 +1,7 @@
-
-
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\b.ico</ApplicationIcon>
     <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))-develop</Version>
@@ -30,8 +28,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EvilBaschdi.CoreExtended" Version="2023.2.1.1955-develop" />
-    <PackageReference Include="EvilBaschdi.DependencyInjection" Version="2023.2.1.1926-develop" />
+    <PackageReference Include="EvilBaschdi.Core.Wpf" Version="2023.2.20.2127-develop" />
+    <PackageReference Include="EvilBaschdi.About.Wpf" Version="2023.2.19.836-develop" />
+    <PackageReference Include="EvilBaschdi.DependencyInjection" Version="2023.2.21.1751" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
