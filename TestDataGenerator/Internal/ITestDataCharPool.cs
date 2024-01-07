@@ -28,7 +28,6 @@ public interface ITestDataCharPool
 
     /// <summary>
     /// </summary>
-
     string Signs { get; }
 
     /// <summary>

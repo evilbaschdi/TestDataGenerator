@@ -20,7 +20,6 @@ namespace TestDataGenerator;
 // ReSharper disable once RedundantExtendsListEntry
 // ReSharper disable once InconsistentNaming
 public partial class MainWindow : MetroWindow
-
 {
     private ProgressDialogController _controller;
     private string _dataType;
