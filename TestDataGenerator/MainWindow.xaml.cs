@@ -26,14 +26,17 @@ public partial class MainWindow : MetroWindow
     private string _dataType;
     private string _result;
     private double? _testDataLength;
+    private readonly IApplicationLayout _applicationLayout;
 
     /// <inheritdoc />
     public MainWindow()
     {
         InitializeComponent();
 
-        IApplicationStyle applicationStyle = new ApplicationStyle(true, true);
+        IApplicationStyle applicationStyle = new ApplicationStyle();
+        _applicationLayout = new ApplicationLayout();
         applicationStyle.Run();
+        _applicationLayout.RunFor((this, true, true));
 
         Load();
     }
@@ -159,7 +162,7 @@ public partial class MainWindow : MetroWindow
         IAboutContent aboutContent = new AboutContent(currentAssembly);
         IAboutViewModel aboutModel = new AboutViewModel(aboutContent);
         IApplyMicaBrush applyMicaBrush = new ApplyMicaBrush();
-        var aboutWindow = new AboutWindow(aboutModel, applyMicaBrush);
+        var aboutWindow = new AboutWindow(aboutModel, _applicationLayout, applyMicaBrush);
 
         aboutWindow.ShowDialog();
     }

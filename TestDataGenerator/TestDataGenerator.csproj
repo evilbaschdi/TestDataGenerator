@@ -1,7 +1,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\b.ico</ApplicationIcon>
     <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))-develop</Version>
@@ -28,19 +28,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EvilBaschdi.Core.Wpf" Version="2023.2.20.2127-develop" />
-    <PackageReference Include="EvilBaschdi.About.Wpf" Version="2023.2.19.836-develop" />
-    <PackageReference Include="EvilBaschdi.DependencyInjection" Version="2023.2.21.1751" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
-    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="WpfAnalyzers" Version="4.1.1">
+    <PackageReference Include="EvilBaschdi.Core.Wpf" />
+    <PackageReference Include="EvilBaschdi.About.Wpf" />
+    <PackageReference Include="EvilBaschdi.DependencyInjection" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" />
+    <PackageReference Include="WpfAnalyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
