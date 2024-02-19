@@ -11,11 +11,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>preview</LangVersion>
 		<PackageProjectUrl>https://github.com/evilbaschdi/TestDataGenerator</PackageProjectUrl>
-		<Product>VM Toolbox</Product>
+		<Product>TestDataGenerator</Product>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<PublishSingleFile>true</PublishSingleFile>
 		<RepositoryUrl>https://github.com/evilbaschdi/TestDataGenerator</RepositoryUrl>
-		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 		<Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</Version>
 	</PropertyGroup>
 

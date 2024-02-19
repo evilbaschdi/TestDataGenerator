@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      Title="Test Data Generator" Width="500" Height="350"
+                      Title="Test Data Generator" Width="500" Height="350" ShowIconOnTitleBar="False"
                       Icon="/Resources/b.ico" ResizeMode="CanMinimize" TitleCharacterCasing="Normal">
     <!--  RightWindowCommands  -->
     <controls:MetroWindow.RightWindowCommands>
