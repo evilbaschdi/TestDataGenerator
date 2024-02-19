@@ -1,0 +1,34 @@
+<Project>
+
+	<Choose>
+		<When Condition="$(MSBuildProjectName.Contains('Wpf'))">
+			<PropertyGroup>
+				<TargetFrameworks>net8.0-windows</TargetFrameworks>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<TargetFrameworks>net8.0</TargetFrameworks>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<ItemGroup>
+		<Compile Remove="TestResults\**" />
+		<EmbeddedResource Remove="TestResults\**" />
+		<None Remove="TestResults\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\*.cs">
+			<DependentUpon>$([System.String]::Copy(I%(Filename).cs).Replace('Cached',''))</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\TestDataFor*.cs">
+			<DependentUpon>ChainHelperFor.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>

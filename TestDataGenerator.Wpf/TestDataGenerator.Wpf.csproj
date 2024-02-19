@@ -1,0 +1,35 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\b.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <None Remove="Resources\b.ico" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EvilBaschdi.About.Wpf" />
+		<PackageReference Include="EvilBaschdi.Core.Wpf" />
+		<PackageReference Include="MahApps.Metro.IconPacks.Material" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WpfAnalyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\b.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <None Update="about.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
