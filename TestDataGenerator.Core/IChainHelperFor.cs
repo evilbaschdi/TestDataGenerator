@@ -1,6 +1,5 @@
-﻿
+﻿// ReSharper disable UnusedMemberInSuper.Global
 
-// ReSharper disable UnusedMemberInSuper.Global
 namespace TestDataGenerator.Core;
 
 /// <summary>
