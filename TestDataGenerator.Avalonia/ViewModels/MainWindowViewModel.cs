@@ -7,6 +7,8 @@ using EvilBaschdi.Core.Avalonia;
 using ReactiveUI;
 using TestDataGenerator.Core;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 // ReSharper disable UnusedMember.Global
 
 namespace TestDataGenerator.Avalonia.ViewModels;
@@ -18,6 +20,7 @@ public class MainWindowViewModel : ViewModelBase
     private readonly ITestDataLength _testDataLength;
     private readonly ITestDataType _testDataType;
     private readonly ITestData _testData;
+    private readonly ITestDataTypeCollection _testDataTypeCollection;
     private readonly IMainWindowByApplicationLifetime _mainWindowByApplicationLifetime;
     private string _output = string.Empty;
     private Window _mainWindow;
@@ -29,18 +32,21 @@ public class MainWindowViewModel : ViewModelBase
     /// <param name="testDataLength"></param>
     /// <param name="testDataType"></param>
     /// <param name="testData"></param>
+    /// <param name="testDataTypeCollection"></param>
     /// <param name="mainWindowByApplicationLifetime"></param>
     /// <exception cref="ArgumentNullException"></exception>
     public MainWindowViewModel([NotNull] IServiceProvider serviceProvider,
+                               [NotNull] ITestData testData,
                                [NotNull] ITestDataLength testDataLength,
                                [NotNull] ITestDataType testDataType,
-                               [NotNull] ITestData testData,
+                               [NotNull] ITestDataTypeCollection testDataTypeCollection,
                                [NotNull] IMainWindowByApplicationLifetime mainWindowByApplicationLifetime)
     {
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         _testDataLength = testDataLength ?? throw new ArgumentNullException(nameof(testDataLength));
         _testDataType = testDataType ?? throw new ArgumentNullException(nameof(testDataType));
         _testData = testData ?? throw new ArgumentNullException(nameof(testData));
+        _testDataTypeCollection = testDataTypeCollection ?? throw new ArgumentNullException(nameof(testDataTypeCollection));
         _mainWindowByApplicationLifetime = mainWindowByApplicationLifetime ?? throw new ArgumentNullException(nameof(mainWindowByApplicationLifetime));
         AboutWindowCommand = ReactiveCommand.Create(AboutWindowCommandExecute);
         GenerateTestDataCommand = ReactiveCommand.Create(GenerateTestDataCommandExecute);
@@ -118,16 +124,5 @@ public class MainWindowViewModel : ViewModelBase
     /// <summary>
     ///     TestDataTypeCollection
     /// </summary>
-    public ObservableCollection<object> TestDataTypeCollection => new([
-        "Letters",
-        "Numbers",
-        "Capital Letters",
-        "Small Letters",
-        "Letters and Numbers",
-        "Letters, Numbers and Signs",
-        "Guids (digits)",
-        "Guids (hyphens)",
-        "Guids (braces)",
-        "Guids (parentheses)"
-    ]);
+    public ObservableCollection<object> TestDataTypeCollection => new(_testDataTypeCollection.Value);
 }

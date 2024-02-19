@@ -13,8 +13,8 @@ namespace TestDataGenerator.Wpf;
 public partial class App : Application
 {
     private readonly IHandleAppExit _handleAppExit;
-    private readonly IHandleAppStartup<MainWindow> _handleAppStartup;
-    private MainWindow _mainWindow;
+    private readonly IHandleAppStartup<Views.MainWindow> _handleAppStartup;
+    private Views.MainWindow _mainWindow;
 
     /// <inheritdoc />
     public App()
@@ -26,7 +26,7 @@ public partial class App : Application
 
         ServiceProvider = configureServicesByHostBuilderAndConfigureDelegate.Value;
 
-        _handleAppStartup = new HandleAppStartup<MainWindow>(hostInstance);
+        _handleAppStartup = new HandleAppStartup<Views.MainWindow>(hostInstance);
         _handleAppExit = new HandleAppExit(hostInstance);
     }
 

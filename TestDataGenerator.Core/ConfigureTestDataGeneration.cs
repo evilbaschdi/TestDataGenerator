@@ -8,12 +8,13 @@ public class ConfigureTestDataGeneration : IConfigureTestDataGeneration
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddSingleton<ITestDataType, TestDataType>();
-        services.AddSingleton<ITestDataLength, TestDataLength>();
         services.AddSingleton<IGenerateTestData, GenerateTestData>();
         services.AddSingleton<IGenerateTestGuids, GenerateTestGuids>();
-        services.AddSingleton<ITestDataCharPool, TestDataCharPool>();
         services.AddSingleton<ITestData, TestData>();
+        services.AddSingleton<ITestDataCharPool, TestDataCharPool>();
+        services.AddSingleton<ITestDataLength, TestDataLength>();
+        services.AddSingleton<ITestDataType, TestDataType>();
+        services.AddSingleton<ITestDataTypeCollection, TestDataTypeCollection>();
 
         services.Chain<IChainHelperFor<string, string>>()
                 .Add<TestDataForLetters>()

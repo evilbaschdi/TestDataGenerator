@@ -1,8 +1,6 @@
 ﻿using EvilBaschdi.About.Core.DependencyInjection;
 using EvilBaschdi.About.Wpf.DependencyInjection;
-using EvilBaschdi.Core.Wpf;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using TestDataGenerator.Core;
 
@@ -27,26 +25,5 @@ public class ConfigureDelegateForConfigureServices : IConfigureDelegateForConfig
 
         IConfigureTestDataGeneration configureTestDataGeneration = new ConfigureTestDataGeneration();
         configureTestDataGeneration.RunFor(serviceCollection);
-    }
-}
-
-/// <inheritdoc />
-public interface IConfigureWpfServices : IConfigureServiceCollection
-{
-}
-
-/// <inheritdoc />
-public class ConfigureWpfServices : IConfigureWpfServices
-{
-    /// <inheritdoc />
-    public void RunFor([NotNull] IServiceCollection services)
-    {
-        ArgumentNullException.ThrowIfNull(services);
-
-        services.TryAddSingleton<IApplicationLayout, ApplicationLayout>();
-        services.TryAddSingleton<IApplicationStyle, ApplicationStyle>();
-        services.TryAddSingleton<IApplyMicaBrush, ApplyMicaBrush>();
-
-        services.AddTransient(typeof(MainWindow));
     }
 }
