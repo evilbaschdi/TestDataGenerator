@@ -1,32 +1,38 @@
+using EvilBaschdi.Core.Internal.ChainLink;
+
 namespace TestDataGenerator.Core;
 
-/// <inheritdoc />
-public class TestDataForSmallLetters : ChainHelperFor<string, string>
+/// <inheritdoc cref="ITestDataFor" />
+/// <inheritdoc cref="ChainLinkValueFor{T,T}" />
+public class TestDataForSmallLetters : ChainLinkValueFor<string, string>, ITestDataFor
 {
     private readonly IGenerateTestData _generateTestData;
+    private readonly ITestDataType _testDataType;
     private readonly ITestDataCharPool _testDataCharPool;
 
     /// <inheritdoc />
     /// <summary>
     ///     Constructor of the class
     /// </summary>
-    /// <param name="chainHelperFor"></param>
+    /// <param name="testDataFor"></param>
+    /// <param name="testDataType"></param>
     /// <param name="generateTestData"></param>
     /// <param name="testDataCharPool"></param>
-    public TestDataForSmallLetters(IChainHelperFor<string, string> chainHelperFor, IGenerateTestData generateTestData,
-                                   ITestDataCharPool testDataCharPool)
-        : base(chainHelperFor)
+    public TestDataForSmallLetters(
+        ITestDataFor testDataFor,
+        ITestDataType testDataType,
+        IGenerateTestData generateTestData,
+        ITestDataCharPool testDataCharPool)
+        : base(testDataFor)
     {
+        _testDataType = testDataType ?? throw new ArgumentNullException(nameof(testDataType));
         _testDataCharPool = testDataCharPool ?? throw new ArgumentNullException(nameof(testDataCharPool));
         _generateTestData = generateTestData ?? throw new ArgumentNullException(nameof(generateTestData));
     }
 
     /// <inheritdoc />
-    public override bool AmIResponsible => Input.Equals("Small Letters");
+    public override bool AmIResponsible => _testDataType.Value.Equals("Small Letters");
 
     /// <inheritdoc />
-    protected override string InnerValueFor(string input)
-    {
-        return _generateTestData.ValueFor(_testDataCharPool.SmallLetters);
-    }
+    protected override string InnerValueFor(string input) => _generateTestData.ValueFor(_testDataCharPool.SmallLetters);
 }

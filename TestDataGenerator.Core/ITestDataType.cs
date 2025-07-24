@@ -1,6 +1,4 @@
 namespace TestDataGenerator.Core;
 
 /// <inheritdoc />
-public interface ITestDataType : IWritableValue<string>
-{
-}
+public interface ITestDataType : IWritableValue<string>;

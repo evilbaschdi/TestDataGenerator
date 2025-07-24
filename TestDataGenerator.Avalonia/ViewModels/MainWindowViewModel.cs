@@ -48,9 +48,9 @@ public class MainWindowViewModel : ViewModelBase
         _testData = testData ?? throw new ArgumentNullException(nameof(testData));
         _testDataTypeCollection = testDataTypeCollection ?? throw new ArgumentNullException(nameof(testDataTypeCollection));
         _mainWindowByApplicationLifetime = mainWindowByApplicationLifetime ?? throw new ArgumentNullException(nameof(mainWindowByApplicationLifetime));
-        AboutWindowCommand = ReactiveCommand.Create(AboutWindowCommandExecute);
+        AboutWindowCommand = ReactiveCommand.CreateFromTask(AboutWindowCommandExecute);
         GenerateTestDataCommand = ReactiveCommand.Create(GenerateTestDataCommandExecute);
-        CopyToClipboardCommand = ReactiveCommand.Create(CopyToClipboardCommandExecuteAsync);
+        CopyToClipboardCommand = ReactiveCommand.CreateFromTask(CopyToClipboardCommandExecuteAsync);
     }
 
     /// <summary>
@@ -65,13 +65,13 @@ public class MainWindowViewModel : ViewModelBase
     /// </summary>
     public ReactiveCommand<Unit, Unit> CopyToClipboardCommand { get; set; }
 
-    private void AboutWindowCommandExecute()
+    private async Task AboutWindowCommandExecute()
     {
         var aboutWindow = _serviceProvider.GetRequiredService<AboutWindow>();
         _mainWindow = _mainWindowByApplicationLifetime.Value;
         if (_mainWindow != null)
         {
-            aboutWindow.ShowDialog(_mainWindow);
+            await aboutWindow.ShowDialog(_mainWindow);
         }
     }
 
@@ -80,7 +80,7 @@ public class MainWindowViewModel : ViewModelBase
         Output = _testData.Value;
     }
 
-    private async void CopyToClipboardCommandExecuteAsync()
+    private async Task CopyToClipboardCommandExecuteAsync()
     {
         _mainWindow = _mainWindowByApplicationLifetime.Value;
         var clipboard = _mainWindow.Clipboard;

@@ -1,6 +1,4 @@
 ﻿namespace TestDataGenerator.Core;
 
 /// <inheritdoc />
-public interface ITestDataTypeCollection : IValueOfList<string>
-{
-}
+public interface ITestDataTypeCollection : IListOf<string>;

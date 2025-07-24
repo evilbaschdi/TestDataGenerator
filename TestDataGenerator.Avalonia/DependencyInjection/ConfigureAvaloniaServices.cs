@@ -4,11 +4,11 @@ using TestDataGenerator.Avalonia.ViewModels;
 
 namespace TestDataGenerator.Avalonia.DependencyInjection;
 
-/// <inheritdoc />
-public class ConfigureAvaloniaServices : IConfigureAvaloniaServices
+/// <summary />
+public static class ConfigureAvaloniaServices
 {
-    /// <inheritdoc />
-    public void RunFor(IServiceCollection services)
+    /// <summary />
+    public static void AddAvaloniaServices(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
 

@@ -1,6 +1,4 @@
 ﻿namespace TestDataGenerator.Core;
 
 /// <inheritdoc />
-public interface ITestData : IString
-{
-}
+public interface ITestData : IString;

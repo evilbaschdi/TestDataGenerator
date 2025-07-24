@@ -1,18 +1,5 @@
 <Project>
 
-	<Choose>
-		<When Condition="$(MSBuildProjectName.Contains('Wpf'))">
-			<PropertyGroup>
-				<TargetFrameworks>net8.0-windows</TargetFrameworks>
-			</PropertyGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup>
-				<TargetFrameworks>net8.0</TargetFrameworks>
-			</PropertyGroup>
-		</Otherwise>
-	</Choose>
-
 	<ItemGroup>
 		<Compile Remove="TestResults\**" />
 		<EmbeddedResource Remove="TestResults\**" />
@@ -27,7 +14,7 @@
 
 	<ItemGroup>
 		<Compile Update="**\TestDataFor*.cs">
-			<DependentUpon>ChainHelperFor.cs</DependentUpon>
+			<DependentUpon>ITestDataFor.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
 

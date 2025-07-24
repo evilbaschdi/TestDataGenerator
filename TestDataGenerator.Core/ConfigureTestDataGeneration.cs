@@ -1,10 +1,10 @@
 ﻿namespace TestDataGenerator.Core;
 
-/// <inheritdoc />
-public class ConfigureTestDataGeneration : IConfigureTestDataGeneration
+/// <summary />
+public static class ConfigureTestDataGeneration
 {
-    /// <inheritdoc />
-    public void RunFor([NotNull] IServiceCollection services)
+    /// <summary />
+    public static void AddTestDataGeneration(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
 
@@ -16,7 +16,7 @@ public class ConfigureTestDataGeneration : IConfigureTestDataGeneration
         services.AddSingleton<ITestDataType, TestDataType>();
         services.AddSingleton<ITestDataTypeCollection, TestDataTypeCollection>();
 
-        services.Chain<IChainHelperFor<string, string>>()
+        services.Chain<ITestDataFor>()
                 .Add<TestDataForLetters>()
                 .Add<TestDataForNumbers>()
                 .Add<TestDataForCapitalLetters>()
@@ -27,6 +27,7 @@ public class ConfigureTestDataGeneration : IConfigureTestDataGeneration
                 .Add<TestDataForGuidsHyphens>()
                 .Add<TestDataForGuidsBraces>()
                 .Add<TestDataForGuidsParentheses>()
+                .Add<TestDataFor>()
                 .Configure();
     }
 }

@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using EvilBaschdi.About.Avalonia.DependencyInjection;
-using EvilBaschdi.About.Core.DependencyInjection;
 using TestDataGenerator.Avalonia.DependencyInjection;
 using TestDataGenerator.Avalonia.ViewModels;
 using TestDataGenerator.Avalonia.Views;
@@ -28,13 +27,9 @@ public class App : Application
     {
         IServiceCollection serviceCollection = new ServiceCollection();
 
-        IConfigureAboutServices configureAboutServices = new ConfigureAboutServices();
-        IConfigureAvaloniaServices configureAvaloniaServices = new ConfigureAvaloniaServices();
-        IConfigureTestDataGeneration configureTestDataGeneration = new ConfigureTestDataGeneration();
-
-        configureAboutServices.RunFor(serviceCollection);
-        configureAvaloniaServices.RunFor(serviceCollection);
-        configureTestDataGeneration.RunFor(serviceCollection);
+        serviceCollection.AddAboutServices();
+        serviceCollection.AddAvaloniaServices();
+        serviceCollection.AddTestDataGeneration();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 

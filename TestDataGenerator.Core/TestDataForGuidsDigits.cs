@@ -1,28 +1,34 @@
+using EvilBaschdi.Core.Internal.ChainLink;
+
 namespace TestDataGenerator.Core;
 
-/// <inheritdoc />
-public class TestDataForGuidsDigits : ChainHelperFor<string, string>
+/// <inheritdoc cref="ITestDataFor" />
+/// <inheritdoc cref="ChainLinkValueFor{T,T}" />
+public class TestDataForGuidsDigits : ChainLinkValueFor<string, string>, ITestDataFor
 {
+    private readonly ITestDataType _testDataType;
     private readonly IGenerateTestGuids _generateTestGuids;
 
     /// <inheritdoc />
     /// <summary>
     ///     Constructor of the class
     /// </summary>
-    /// <param name="chainHelperFor"></param>
+    /// <param name="testDataFor"></param>
+    /// <param name="testDataType"></param>
     /// <param name="generateTestGuids"></param>
-    public TestDataForGuidsDigits(IChainHelperFor<string, string> chainHelperFor, IGenerateTestGuids generateTestGuids)
-        : base(chainHelperFor)
+    public TestDataForGuidsDigits(
+        ITestDataFor testDataFor,
+        ITestDataType testDataType,
+        IGenerateTestGuids generateTestGuids)
+        : base(testDataFor)
     {
+        _testDataType = testDataType ?? throw new ArgumentNullException(nameof(testDataType));
         _generateTestGuids = generateTestGuids ?? throw new ArgumentNullException(nameof(generateTestGuids));
     }
 
     /// <inheritdoc />
-    public override bool AmIResponsible => Input.Equals("Guids (digits)");
+    public override bool AmIResponsible => _testDataType.Value.Equals("Guids (digits)");
 
     /// <inheritdoc />
-    protected override string InnerValueFor(string input)
-    {
-        return _generateTestGuids.ValueFor("N");
-    }
+    protected override string InnerValueFor(string input) => _generateTestGuids.ValueFor("N");
 }
