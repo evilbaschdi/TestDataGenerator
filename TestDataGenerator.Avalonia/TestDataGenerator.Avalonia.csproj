@@ -1,17 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-	  <ApplicationIcon>Assets\b.ico</ApplicationIcon>
-	  <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-	  <OutputType>WinExe</OutputType>
-  </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+	<PropertyGroup>
+		<ApplicationIcon>Assets\b.ico</ApplicationIcon>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\b.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\b.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="EvilBaschdi.About.Avalonia" />
@@ -21,14 +18,14 @@
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
 	</ItemGroup>
 
-  <ItemGroup>
-	  <AvaloniaResource Include="Assets\**" />
-	  <Content Include="Assets\about.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Resource Include="Assets\b.ico">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+		<Content Include="Assets\about.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Resource Include="Assets\b.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
 </Project>
