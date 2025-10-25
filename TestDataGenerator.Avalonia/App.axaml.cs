@@ -36,9 +36,9 @@ public class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindow = new MainWindow
-                             {
-                                 DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>()
-                             };
+            {
+                DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>()
+            };
 
             desktop.MainWindow = mainWindow;
         }

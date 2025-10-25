@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Reactive;
 using Avalonia.Controls;
-using Avalonia.Input;
 using EvilBaschdi.About.Avalonia;
 using EvilBaschdi.Core.Avalonia;
 using ReactiveUI;
@@ -89,9 +88,7 @@ public class MainWindowViewModel : ViewModelBase
             return;
         }
 
-        var dataObject = new DataObject();
-        dataObject.Set(DataFormats.Text, _output);
-        await clipboard.SetDataObjectAsync(dataObject);
+        await clipboard.SetTextAsync(_output);
     }
 
     /// <summary>
