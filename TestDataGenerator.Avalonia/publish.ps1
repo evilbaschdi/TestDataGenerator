@@ -1,5 +1,29 @@
-dotnet publish -c Release -o "C:\Apps\$((Get-Item .).Name)\x64" -r win-x64 -f net10.0 --no-self-contained
-dotnet publish -c Release -o "C:\Apps\$((Get-Item .).Name)\arm64" -r win-arm64 -f net10.0 --no-self-contained
+# This script is used to publish the App for different runtimes.
+# It sets the target framework to .NET 10.0 and specifies the runtimes for x64 and ARM64 architectures (Windows and Linux).
+$targetFramework = "net10.0"
+$runtimes = @("win-x64", "win-arm64", "linux-x64", "linux-arm64")
+$appsDirectory = "C:\Apps"
+$appName = (Get-Item .).Name
+$outputBase = "$appsDirectory\$appName"
 
-dotnet publish -c Release -o "C:\Apps\$((Get-Item .).Name)\linux-x64" -r linux-x64 -f net10.0 --self-contained
-dotnet publish -c Release -o "C:\Apps\$((Get-Item .).Name)\linux-arm64" -r linux-arm64 -f net10.0 --self-contained
+# Copy AppLauncher and rename it to the app name
+$appLauncherSource = "$appsDirectory\AppLauncher\x64\AppLauncher.exe"
+$appLauncherTarget = "$outputBase\$appName.exe"
+
+foreach ($runtime in $runtimes) {
+    if ($runtime.StartsWith("win-")) {
+        dotnet publish -c Release -o "$outputBase\$($runtime.Replace('win-', ''))" -r $runtime -f $targetFramework --no-self-contained
+    }
+    else {
+        dotnet publish -c Release -o "$outputBase\$runtime" -r $runtime -f $targetFramework --self-contained
+    }
+}
+
+if (Test-Path $appLauncherSource) {
+    Write-Output "Copying AppLauncher to $appLauncherTarget..."
+    Copy-Item -Path $appLauncherSource -Destination $appLauncherTarget -Force
+    Write-Output "Launcher ready: $appLauncherTarget"
+}
+else {
+    Write-Warning "AppLauncher not found at $appLauncherSource"
+}
