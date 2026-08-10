@@ -1,4 +1,4 @@
-<Solution>
+﻿<Solution>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.Props" />
     <File Path="Directory.Build.Targets" />
@@ -6,7 +6,9 @@
     <File Path="global.json" />
     <File Path="NuGet.config" />
   </Folder>
-  <Project Path="TestDataGenerator.Avalonia/TestDataGenerator.Avalonia.csproj" />
-  <Project Path="TestDataGenerator.Core/TestDataGenerator.Core.csproj" />
-  <Project Path="TestDataGenerator.Terminal/TestDataGenerator.Terminal.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/TestDataGenerator.Avalonia/TestDataGenerator.Avalonia.csproj" />
+    <Project Path="src/TestDataGenerator.Core/TestDataGenerator.Core.csproj" />
+    <Project Path="src/TestDataGenerator.Terminal/TestDataGenerator.Terminal.csproj" />
+  </Folder>
 </Solution>
