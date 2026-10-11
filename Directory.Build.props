@@ -33,8 +33,8 @@
 		<Using Include="AutoFixture.Idioms" />
 		<Using Include="AutoFixture.Xunit2" />
 		<Using Include="EvilBaschdi.Testing" />
-		<Using Include="FluentAssertions" />
-		<Using Include="EvilBaschdi.Testing.FluentAssertions.Microsoft.Extensions.DependencyInjection" />
+		<Using Include="AwesomeAssertions" />
+		<Using Include="EvilBaschdi.Testing.Assertions.Microsoft.Extensions.DependencyInjection" />
 		<Using Include="NSubstitute" />
 		<Using Include="NSubstitute.ReturnsExtensions" />
 		<Using Include="Xunit" />
@@ -61,14 +61,11 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="FluentAssertions.Analyzers">
+		<PackageReference Include="AwesomeAssertions.Analyzers">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Meziantou.FluentAssertionsAnalyzers">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
+
 		<PackageReference Include="NSubstitute.Analyzers.CSharp">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
